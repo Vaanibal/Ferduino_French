@@ -1,21 +1,48 @@
+
+///*****************************************************************************************************************************************************
+//......................................................................................................................................................
+//...............           .           ...           .....         . .....     ..... .   ...     ...     .....     .....           ....................
+//..............                                       ...             . .       ....      .       .         .       ...     ...     . .................
+//.............  2@B@B@B@B@.  @B@B@B@B@B,  N@B@B@@@BN:  . iB@B@B@@@B5:     .@@@i .... vB@@   .@B@i   N@B@B:   . OB@;  .  :qB@@@B@BM7   .................
+//.............  ZB@BXqGZ8Z  .B@BMX00GGM.  BB@BXNZB@B@q   r@@@N00MB@B@B:   ,B@Br ...  L@B@   .B@B7   @B@B@B:    B@B7    8@B@M1JUO@B@B: .................
+//.............  S@BO         @B@.         G@Bk    j@B@.  iB@B     ,@B@B.  .@B@:  ... vB@B   .@B@i   O@@YB@B.   M@@i   B@B@.      BB@B  ................
+//.............  XB@O         @@B:         8B@F    J@@B   i@B@       @B@G  .B@Bi ...  7@B@   .B@Bi   MB@ rB@B   G@@i  r@B@,       .@B@v  ...............
+//.............  F@B@q8OMB5   @B@B@B@@@,   Z@BBJ2UMB@B:   iB@@  . .  P@B@  .@B@i  ... vB@B   .@B@i   M@@, E@@B  GB@i  qB@B  .....  B@BN  ...............
+//.............. kB@B@@@B@M   B@@8XZGOO.   8B@B@B@B@v     i@B@   .   qB@B  .B@B: ...  r@B@   .B@B;   MB@:  MB@G S@Bi  q@B@   ...   @B@k  ...............
+//.............  S@BM         @B@,         Z@Bq  :@@@5    iB@B       B@BZ  .@B@:      7B@B   .@B@i   O@Bi   @B@7uB@i  uB@@.   .   ,@@B7 ................
+//.............  kB@M      .  B@B:         8B@N   :@B@Y   i@@@      O@B@.   B@@0      M@BM   .B@B;   MB@i    @@@B@@i  .@B@G       B@B@   ...............
+//.............  q@@@   ....  @B@Nju1UFk.  M@BM    1@B@:  rB@B2u1X@B@B@:    r@@B@Jrr2B@B@.   .@B@r   B@Br    ,@B@B@r   i@B@BS777NB@@@   ................
+//.............. NB@B  ..... .B@B@B@B@@@:  MB@O  .  B@B@  i@B@B@B@B@q;   ..  ,P@B@B@B@Bu   . ,@@B7   @@@;  .  i@B@Bi     1B@B@B@B@O7   .................
+//.............   ..  .......   . ... ..    ..  ...  ...   ..   .       ....    .:::,     ... ...     ..  ...   . .  ..     ,:::.     ..................
+//..............     .........           .     .....     .           ....... .         . ....     ..     .....     .......         .....................
+//................................... ................. ......... ............... . ........... ................. ........... . . ......................
+//******************************************************************************************************************************************************
+//***********************              Desenvolvido por Fernando Garcia         ************************************************************************
+//******************************************************************************************************************************************************
+//******* Dúvidas, sugestões e elogios: fefegarcia_1@hotmail.com ***************************************************************************************
+//*****************************************************************************************************************************************************/
+
 // Este programa é compatível com a IDE 1.0.2 desde que as bibliotecas "WConstants.h" e "wiring.h" sejam colocadas na pasta ...arduino-1.0.2\hardware\arduino\cores\arduino.
-//Dúvidas, sugestões e elogios: fefegarcia_1@hotmail.com
+
 //---------------------------------------------------------
-//Ferduino controlador de aquários versão 2.4.0>> Última atualização:26/11/2012.
-//Este programa foi desenvolvido com base na versão Stilo 2.1
-//Disponível nesta página http://code.google.com/p/stilo/ 
+
+// Este programa foi desenvolvido com base na versão Stilo 2.1
+// Disponível nesta página http://code.google.com/p/stilo/ 
+
 //---------------------------------------------------------
-//Algoritmo de controle de LED é baseado em Krusduino de Hugh Dangerfield
-//http://Code.Google.com/p/dangerduino/
-//Algoritmo da fase lunar foi escrito por Jamie Jardin vulgo "TheDOdblG", baseado no código de NightAtTheOpera's Lunar Phase 
-//http://www.nano-reef.com/forums/index.php?showtopic=217305
+
+// Algoritmo de controle de LED é baseado em Krusduino de Hugh Dangerfield
+// http://Code.Google.com/p/dangerduino/
+// Algoritmo da fase lunar foi escrito por Jamie Jardin vulgo "TheDOdblG", baseado no código de NightAtTheOpera's Lunar Phase 
+// http://www.nano-reef.com/forums/index.php?showtopic=217305
+
 //-----------------------------------------------------------
 // Este programa é software livre; Você pode redistribuí-lo e/ou
 // modificá-lo sob os termos da GNU General Public License
 // como publicada pela Free Software Foundation versão 3
 // da licença, ou (por sua opção) qualquer versão posterior.
 // Este programa é distribuído na esperança que seja útil,
-// Mas sem qualquer garantia; sem mesmo a garantia implícita de
+// mas sem qualquer garantia; sem mesmo a garantia implícita de
 // comercialização ou propósito particular. Consulte o
 // GNU General Public License para mais detalhes.
 
@@ -43,10 +70,8 @@
 //****************************************************************************************************
 OneWire OneWireBus(47);                   //Sensor de temperatura da água e dissipador ligados ao pino 47.
 DallasTemperature sensors(&OneWireBus);  // Pass our oneWire reference to Dallas Temperature. 
-DeviceAddress sensor_agua= {
-  0x28, 0x9C, 0xA9, 0xAA, 0x03, 0x00, 0x00, 0x44 }; // Atribui os endereços dos sensores de temperatura. Adicionar / Alterar os endereços conforme necessário.
-DeviceAddress sensor_dissipador = {
-  0x28, 0xE1, 0x96, 0xAA, 0x03, 0x00, 0x00, 0x7D }; // Atribui os endereços dos sensores de temperatura. Adicionar / Alterar os endereços conforme necessário.
+DeviceAddress sensor_agua= {0x28, 0x9C, 0xA9, 0xAA, 0x03, 0x00, 0x00, 0x44 }; // Atribui os endereços dos sensores de temperatura. Adicionar / Alterar os endereços conforme necessário.
+DeviceAddress sensor_dissipador = {0x28, 0xE1, 0x96, 0xAA, 0x03, 0x00, 0x00, 0x7D }; // Atribui os endereços dos sensores de temperatura. Adicionar / Alterar os endereços conforme necessário.
 
 //****************************************************************************************************
 //****************** Variáveis de textos e fontes ****************************************************
@@ -117,11 +142,11 @@ int whiteLed, blueLed;    // Valor anterior de PWM.
 int dispScreen = 0;
 
 // tela inicio =0, 
-//tela de menu = 1, 
-//tela do relogio = 2,
+// tela de menu = 1, 
+// tela do relogio = 2,
 // tela de teste = 3,
-//tela controle de temperatua = 4, 
-//tela alterar valores dos led = 5
+// tela controle de temperatua = 4, 
+// tela alterar valores dos led = 5
 // tela para alterar potencia dos leds = 6,
 // tela tpa = 7, 
 // tela config. bombas dosadoras = 8,
@@ -137,10 +162,7 @@ int dispScreen = 0;
 // tela configuracao de ph do aquario = 18, 
 // tela grafico de densidade = 19,
 // tela configurar densidade = 20, 
-// tela esolha uma dosadora = 21, 
-// tela dosadora 1 = 22, 
-//tela dosadora 2 = 23, tela dosadora 3 = 24, tela dosadora 4 = 25, tela calibra dosadoras = 26
-
+// tela esolha uma dosadora = 21,.... 
 //*****************************************************************************************
 //*********************** Variáveis do controle de temperatura da água ********************
 //*****************************************************************************************
@@ -252,7 +274,8 @@ int bled_out ;
 int wled_out ;
 int moonled_out;
 #define WHITE true
-#define BLUE false               
+#define BLUE false
+boolean periodo_selecionado = false;
 
 //*****************************************************************************************
 //************************ Variáveis da fase lunar ******************************************
@@ -391,9 +414,6 @@ int minuto11 = 0;
 int deslocamento_botao_x = 155;
 int deslocamento_botao_y = 90;
 long tempo_dosagem_1 = 0;
-int pwm_dosadora_1 = 255;
-int pwm_dosadora_2 = 255;
-int pwm_dosadora_3 = 255;
 float dose_dosadora_1_manual = 0.0;
 float dose_dosadora_2_manual = 0.0;
 float dose_dosadora_3_manual = 0.0;
@@ -643,209 +663,3 @@ byte wled[96] = {                         //Potência de saída dos leds brancos
 };
 byte tled[96];
 
-char* tabela_textos[] PROGMEM = 
-{
-"",        // tabela_textos[0]
-"MENU 1",  // tabela_textos[1]
-"MENU 2",  // tabela_textos[2]
-"HEURE ET DATE", // tabela_textos[3]
-"TEST LED", // tabela_textos[4]
-"REGLAGE GENERAL", // tabela_textos[5]
-"GRAFIQUE", // tabela_textos[6]
-"CONFIG LED", // tabela_textos[7]
-"TPA AUTOMATIQUE", // tabela_textos[8] // Troca Parcial de Água automática.
-"POMPE DOSEUSE", // tabela_textos[9]
-"WAVEMAKER", // tabela_textos[10]
-"SORTIE", // tabela_textos[11]
-"REGLAGE HEURE ET DATE", // tabela_textos[12]
-"SAUVE", // tabela_textos[13]
-"HEURE:", // tabela_textos[14]
-"DATE:", // tabela_textos[15]
-"TEST LEDs", // tabela_textos[16]
-"ON/OFF", // tabela_textos[17]
-"TEST", // tabela_textos[18]
-"TEST LEDs",//tabela_textos[19]
-"STOP", // tabela_textos[20]
-"TESTE EM ANDAMENTO", // tabela_textos[21]
-"TEMPO:", // tabela_textos[22]
-"POTENCIA DE SAIDA (0-255):", // tabela_textos[23]
-"CONTROLE TEMPERATURE DE L'EAU", // tabela_textos[24]
-"GRAFIC TEMPERATURE", // tabela_textos[25]
-"GRAFIC REDOX", // tabela_textos[26]
-"GRAFIC PH AQUARIUM", // tabela_textos[27]
-"GRAFIC PH REACTEUR CALCIUM",// tabela_textos[28]
-"GRAFIC DENSITE",// tabela_textos[29]
-"ALTERAR POTENCIAS DOS LEDS BRANCOS", // tabela_textos[30]
-"ALTERAR POTENCIA DOS LEDS AZUIS", // tabela_textos[31]
-"CONF. DIAS E HORARIO PARA TPA AUTOMATICA",// tabela_textos[32]
-"ALTERAR CONFIGURACAO DAS DOSADORAS",// tabela_textos[33]
-"ESCOLHA UM GRAFICO",// tabela_textos[34]
-"WAVEMAKER", // tabela_textos[35]
-"ESCOLHA UM PARAMETRO", // tabela_textos[36]
-"CONTROLE DE PH DO REATOR DE CALCIO", // tabela_textos[37]
-"CONTROLE DE REDOX", // tabela_textos[38]
-"CONTROLE PH AQUARIUM",// tabela_textos[39]
-"CONTROLE DENSITE", // tabela_textos[40]
-"ESCOLHA UMA DOSADORA", // tabela_textos[41]
-"CALIBRER DOSAGE", // tabela_textos[42]
-"DOSAGE MANUAL", // tabela_textos[43]
-"CONFIGURAR DOSAGEM AUTOMATICA" ,// tabela_textos[44]
-"CONFIGURAR DOSAGEM PERSONALIZADA", // tabela_textos[45]
-"DIGITE A SENHA", // tabela_textos[46]
-"CONFIGURAR DOSAGEM PERSONALIZADA", // tabela_textos[47]
-"ALTERAR CONFIGURACAO DAS DOSADORAS", // tabela_textos[48]
-"REVER CONF. DA DOSAGEM AUTOMATICA", // tabela_textos[49]
-"REVER CONF. DA DOSAGEM PERSONALIZADA", // tabela_textos[50]
-"DESATIVAR DOSADORAS", // tabela_textos[51]
-"LUZ NOTURNA   255 = 100 %", // tabela_textos[52]
-"SELECIONE O TIMER", // tabela_textos[53]
-"CONFIGURATION TIMER 1", // tabela_textos[54]
-"CONFIGURATION TIMER 2", // tabela_textos[55]
-"CONFIGURATION TIMER 3", // tabela_textos[56]
-"CONFIGURATION TIMER 4", // tabela_textos[57]
-"CONFIGURATION TIMER 5", // tabela_textos[58]
-"LUNDI", // tabela_textos[59]
-"MARDI", // tabela_textos[60]
-"MERCREDI", // tabela_textos[61]
-"JEUDI", // tabela_textos[62]
-"VENDREDI", // tabela_textos[63]
-"SAMEDI", // tabela_textos[64]
-"DIMANCHE", // tabela_textos[65]
-"VOLTAR", // tabela_textos[66]
-"LUA NOVA", // tabela_textos[67]
-"LUA CRESCENTE", // tabela_textos[68]
-"LUA CHEIA",  // tabela_textos[69]
-"S", // tabela_textos[70] // Segunda
-"T",// tabela_textos[71] // Terça
-"Q", // tabela_textos[72] // Quarta
-"D", // tabela_textos[73] // Domingo
-"TEMPERATURA DESEJADA:", // tabela_textos[74]
-"VARIACAO PERMITIDA:", // tabela_textos[75]
-"VARIACAO PARA ACIONAR O ALARME:", // tabela_textos[76]
-"POTENCIA DOS LEDS BRANCOS: 255 = 100%", // tabela_textos[77]
-"BLEU", // tabela_textos[78]
-"POTENCIA LEDS AZUIS: 255 = 100%", // tabela_textos[79]
-"BLANC", // tabela_textos[80]
-"REGALGE", // tabela_textos[81]
-"SAUV EEPROM", // tabela_textos[82]
-"HEURE:", // tabela_textos[83]
-"DURACAO MAXIMA", // tabela_textos[84]
-"POR ESTAGIO:", // tabela_textos[85]
-"FALHA!", // tabela_textos[86]
-"NORMAL", // tabela_textos[87]
-"MANUAL", // tabela_textos[88]
-"AUTOMATICO", // tabela_textos[89]
-"PERSONALIZADO", // tabela_textos[90]
-"REVER CONFIG.", // tabela_textos[91]
-"DESATIVAR MODOS", // tabela_textos[92]
-"TEMPERATURA", // tabela_textos[93]
-"PH AQUARIO", // tabela_textos[94]
-"PH REATOR", // tabela_textos[95]
-"ORP", // tabela_textos[96]
-"DENSIDADE", // tabela_textos[97]
-"CALIBRAR SONDAS", // tabela_textos[98]
-"PH DESEJADO:", // tabela_textos[99]
-"ORP DESEJADA:", // tabela_textos[100]
-"DENSIDADE DESEJADA:", // tabela_textos[101]
-"DOSADORA 1", // tabela_textos[102]
-"DOSADORA 2", // tabela_textos[103]
-"DOSADORA 3", // tabela_textos[104]
-"COLOQUE O RECIPIENTE SOB O BICO", // tabela_textos[105]
-"DOSADOR E CLIQUE EM INICIAR.", // tabela_textos[106]
-"EM SEGUIDA INSIRA O VALOR OBTIDO", // tabela_textos[107]
-"EM ML NO CAMPO ABAIXO.", // tabela_textos[107]
-"PARA MELHORES RESULTADOS REPITA O TESTE", // tabela_textos[109]
-"ALGUMAS VEZES E USE UMA MEDIA.", // tabela_textos[110]
-"DOSADORA 1 SELECIONADA", // tabela_textos[111]
-"DOSADORA 2 SELECIONADA",// tabela_textos[112]
-"DOSADORA 3 SELECIONADA", // tabela_textos[113]
-"SELECIONE O VOLUME A SER DOSADO", // tabela_textos[114]
-"EM ML NO CAMPO ABAIXO  E", // tabela_textos[115]
-"EM SEGUIDA TOQUE EM INICIAR.", // tabela_textos[116]
-"A DOSAGEM INICIARA EM 10 SEGUNDOS",// tabela_textos[117]
-"INICIAL:", // tabela_textos[118]
-"FINAL:", // tabela_textos[119]
-"SELECIONE O", // tabela_textos[120]
-"VOLUME ", // tabela_textos[121]
-"(ML/DIA):",  // tabela_textos[122]
-"QUANTIDADE",  // tabela_textos[123]
-"DE DOSES:",  // tabela_textos[124]
-"SELECIONADA", // tabela_textos[125]
-"ON", // tabela_textos[126]
-"OFF", // tabela_textos[127]
-"QUANTIDADE DE DOSES:", // tabela_textos[128]
-"DOSADORA 1:", // tabela_textos[129]
-"DOSADORA 2:", // tabela_textos[130]
-"DOSADORA 3:", // tabela_textos[131]
-"LUA MINGUANTE", // tabela_textos[132]
-"CALIBRAR", // tabela_textos[133]
-"DESATIVAR MODOS", // tabela_textos[134]
-"PROXIMO", // tabela_textos[135]
-"RAZ", // tabela_textos[136]
-"VALIDEZ", // tabela_textos[137]
-"ANTERIOR", // tabela_textos[138]
-"AUTOMATICO", // tabela_textos[139]
-"PERSONALIZADO", // tabela_textos[140]
-"USE ESTA", // tabela_textos[141]
-"FUNCAO", // tabela_textos[142]
-"APENAS PARA", // tabela_textos[143]
-"DESATIVAR", // tabela_textos[144]
-"OS MODOS", // tabela_textos[145]
-"DE DOSAGEM.", // tabela_textos[146]
-"ATIVATION", // tabela_textos[147]
-"DESSACTIVATION", // tabela_textos[148]
-"UM DOS MODOS", // tabela_textos[149]
-"DE DOSAGEM  ", // tabela_textos[150]
-"ESTA:", // tabela_textos[151]
-"DESATIVER", // tabela_textos[152]
-"AMBOS OS MODOS", // tabela_textos[153]
-"ESTAO OU", // tabela_textos[154]
-"SERAO:", // tabela_textos[155]
-"ILUMINACAO MINIMA:", // tabela_textos[156]
-"LUA CHEIA:", // tabela_textos[157]
-"LUA NOVA:", //  tabela_textos[158]
-"LUZ NOTURNA", // tabela_textos[159]
-"TIMERS", // tabela_textos[160]
-"DEPART TIMER", // tabela_textos[161]
-"ARRET TIMER", // tabela_textos[162]
-"PARAMETRE!", // tabela_textos[163]
-"MODO MANUAL SELECIONADO", // tabela_textos[164]
-"MODO AUTOMATICO SELECIONADO", // tabela_textos[165]
-"INTERVALO ", // tabela_textos[166]
-"ERRADO!", // tabela_textos[167]
-"HORA FINAL", // tabela_textos[168]
-"ERREUR!", // tabela_textos[169]
-"HEURE", // tabela_textos[170]
-"MODO PERSONALIZADO SELECIONADO", // tabela_textos[171]
-"MODO CALIBRACAO SELECIONADO",  // tabela_textos[172]
-"PASSE CORRECTE", // tabela_textos[173]
-"PASSE INCORRECTE!", // tabela_textos[174]
-"MAXI 6 CHIFFRES!", // tabela_textos[175]
-"O INTERVALO ENTRE A INICIAL E A FINAL", // tabela_textos[176]
-"DEVE SER DE NO MINIMO 10 MINUTOS!", // tabela_textos[177]
-"A HORA FINAL NAO PODE SER MENOR", // tabela_textos[178]
-"QUE A INICIAL!",// tabela_textos[179]
-"PUISSANCE MAXI:", // tabela_textos[180]
-"% LUNE", // tabela_textos[181]
-"FASE LUNAIRE:", // tabela_textos[182]
-"T.RAMPE:", // tabela_textos[183]
-"TEMP. EAU:", // tabela_textos[184]
-"PH AQUARIUM:",  // tabela_textos[185]
-"PH REACTEUR:",  // tabela_textos[186]
-"DENSITE:", // tabela_textos[187]
-"ORP:", // tabela_textos[188]
-"GR FROID:", // tabela_textos[189]
-"CHAUFFAGE:", // tabela_textos[190]
-"REACT:", // tabela_textos[191]
-"OZONIS:", // tabela_textos[192]
-"REPOSICAO:", // tabela_textos[193]
-"NIVEAU:", // tabela_textos[194]
-"TPA:", // tabela_textos[195]
-"BAS!", // tabela_textos[196]
-"NORMAL", // tabela_textos[197]
-"Q", // tabela_textos[198] // Quinta
-"S", //  tabela_textos[199] // Sexta 
-"S", // tabela_textos[200] // Sábado
-"CONFIG. LEDS",// tabela_textos[201]
-"CONFIGURAR LEDS" // tabela_textos[202]
-};
