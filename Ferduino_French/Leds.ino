@@ -62,7 +62,9 @@ void LED_levels_output()
     }
   }
 
-
+  float lunarCycle = moonPhase(t.year, t.mon, t.date); //get a value for the lunar cycle
+  moonled_out = (MinI *(1 - lunarCycle)) + (MaxI * lunarCycle) + 0.5;
+  
   if (MeanWell == true) 
   {
     b_out = bled_out;
@@ -90,9 +92,6 @@ void LED_levels_output()
     uv_out = suavizar * uv_out;
     moon_out = suavizar * moon_out;    
   }
-
-  float lunarCycle = moonPhase(t.year, t.mon, t.date); //get a value for the lunar cycle
-  moonled_out = (MinI *(1 - lunarCycle)) + (MaxI * lunarCycle) + 0.5;
 
   analogWrite(ledPinBlue, b_out);
   analogWrite(ledPinWhite, w_out);
