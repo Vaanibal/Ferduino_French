@@ -5,7 +5,7 @@ void processMyTouch()
    int x, y;                  // Coordenadas do touch screen
    x=myTouch.getX();
    y=myTouch.getY();
-
+   
   if(temperatura_alta == false) // Limpa mensagem de que a temperatura dos leds esteve alta.
   {
     temperatura_baixou = false;
