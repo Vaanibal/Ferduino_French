@@ -2,7 +2,7 @@ void checktpa()
 {
   tempo = (duracaomaximatpa * 60000ul);
 
-  if ((segunda==t.dow) && (hora==t.hour) && (minuto==t.min) && (t.sec<=5) && (bitRead(tpa_status,2) == false))
+  if ((segunda==t.dow) && (hora==t.hour) && (minuto==t.min) && (tpa == 0))
   {
     tpa=1;
     if ((4294967295ul - tempo) < millis())
@@ -15,7 +15,7 @@ void checktpa()
     }
   }
 
-  if ((terca==t.dow) && (hora==t.hour) && (minuto==t.min) && (t.sec<=5))
+  if ((terca==t.dow) && (hora==t.hour) && (minuto==t.min) && (tpa == 0))
   {
     tpa=1;
     if ((4294967295ul - tempo) < millis())
@@ -28,7 +28,7 @@ void checktpa()
     }
   }
 
-  if ((quarta==t.dow) && (hora==t.hour) && (minuto==t.min) && (t.sec<=5))
+  if ((quarta==t.dow) && (hora==t.hour) && (minuto==t.min) && (tpa == 0))
   {
     tpa=1;
     if ((4294967295ul - tempo) < millis())
@@ -41,7 +41,7 @@ void checktpa()
     }
   }
 
-  if ((quinta==t.dow) && (hora==t.hour) && (minuto==t.min) && (t.sec<=5))
+  if ((quinta==t.dow) && (hora==t.hour) && (minuto==t.min) && (tpa == 0))
   {
     tpa=1;
     if ((4294967295ul - tempo) < millis())
@@ -54,7 +54,7 @@ void checktpa()
     }
   }
 
-  if ((sexta==t.dow) && (hora==t.hour) && (minuto==t.min) && (t.sec<=5))
+  if ((sexta==t.dow) && (hora==t.hour) && (minuto==t.min) && (tpa == 0))
   {
     tpa=1;
     if ((4294967295ul - tempo) < millis())
@@ -67,7 +67,7 @@ void checktpa()
     }
   }
 
-  if ((sabado==t.dow) && (hora==t.hour) && (minuto==t.min) && (t.sec<=5))
+  if ((sabado==t.dow) && (hora==t.hour) && (minuto==t.min) && (tpa == 0))
   {
     tpa=1;
     if ((4294967295ul - tempo) < millis())
@@ -80,7 +80,7 @@ void checktpa()
     }
   }
 
-  if ((domingo==t.dow) && (hora==t.hour) && (minuto==t.min) && (t.sec<=5))
+  if ((domingo==t.dow) && (hora==t.hour) && (minuto==t.min) && (tpa == 0))
   {
     tpa=1;
     if ((4294967295ul - tempo) < millis())
@@ -102,7 +102,7 @@ void checktpa()
     shiftedmillis= millis();
   }
 
-  if ((analogRead(sensor1)<100) && (analogRead(sensor2)>400) && (analogRead(sensor3)<100) && tpa==1 && (analogRead(sensor4)>400) && ((shiftedmillis - marcadoriniciotpa) < tempo))
+  if ((analogRead(sensor1)<400) && (analogRead(sensor2)>400) && (analogRead(sensor3)<400) && tpa==1 && (analogRead(sensor4)>400) && ((shiftedmillis - marcadoriniciotpa) < tempo))
   {
     digitalWrite(bomba1Pin,HIGH); //estagio 1
     digitalWrite(bomba2Pin,LOW);
@@ -134,7 +134,7 @@ void checktpa()
       marcadoriniciotpa= millis();
     }
   }
-  else if ((analogRead(sensor2)<100) && (analogRead(sensor1)==0) && (analogRead(sensor3)>400) && tpa==3 && ((shiftedmillis - marcadoriniciotpa) < tempo))
+  else if ((analogRead(sensor2)<400) && (analogRead(sensor1)==0) && (analogRead(sensor3)>400) && tpa==3 && ((shiftedmillis - marcadoriniciotpa) < tempo))
   {
     digitalWrite(bomba1Pin,LOW); // estagio 3
     digitalWrite(bomba2Pin,LOW);
@@ -150,7 +150,7 @@ void checktpa()
       marcadoriniciotpa= millis();
     }
   }
-  else if ((analogRead(sensor3)<100) && (analogRead(sensor2)>400) && (analogRead(sensor1)<100) && tpa==4 && ((shiftedmillis - marcadoriniciotpa) < tempo))
+  else if ((analogRead(sensor3)<400) && (analogRead(sensor2)>400) && (analogRead(sensor1)<400) && tpa==4 && ((shiftedmillis - marcadoriniciotpa) < tempo))
   {
     digitalWrite(bomba1Pin,LOW); // estagio 0
     digitalWrite(bomba2Pin,LOW);

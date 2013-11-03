@@ -21,19 +21,12 @@
 //******* Dúvidas, sugestões e elogios: fefegarcia_1@hotmail.com ***************************************************************************************
 //*****************************************************************************************************************************************************/
 
-// Este programa é compatível com a IDE 1.0.4 desde que as bibliotecas "WConstants.h" e "wiring.h" sejam colocadas na pasta ...arduino-1.0.2\hardware\arduino\cores\arduino.
+// Este programa é compatível com a IDE 1.0.5
 
 //---------------------------------------------------------
 
 // Este programa foi desenvolvido com base na versão Stilo 2.1
 // Disponível nesta página http://code.google.com/p/stilo/ 
-
-//---------------------------------------------------------
-
-// Algoritmo de controle de LED é baseado em Krusduino de Hugh Dangerfield
-// http://Code.Google.com/p/dangerduino/
-// Algoritmo da fase lunar foi escrito por Jamie Jardin vulgo "TheDOdblG", baseado no código de NightAtTheOpera's Lunar Phase 
-// http://www.nano-reef.com/forums/index.php?showtopic=217305
 
 //-----------------------------------------------------------
 // Este programa é software livre; Você pode redistribuí-lo e/ou
@@ -57,59 +50,49 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <SdFat.h>
-#include <SdFatUtil.h>
+//#include <SdFatUtil.h>
 #include <EtherCard.h>
 #include <avr/pgmspace.h>
 //#include <PCF8575.h>
 //#include <JeeLib.h>
 //****************************************************************************************************
-//***************** Sensores de temperatura **********************************************************
-//****************************************************************************************************
-OneWire OneWireBus(47);                   //Sensor de temperatura da água e dissipador ligados ao pino 47.
-DallasTemperature sensors(&OneWireBus);  // Pass our oneWire reference to Dallas Temperature. 
-DeviceAddress sensor_agua= {
-  0x28, 0x9C, 0xA9, 0xAA, 0x03, 0x00, 0x00, 0x44 }; // Atribui os endereços dos sensores de temperatura. Adicionar / Alterar os endereços conforme necessário.
-DeviceAddress sensor_dissipador = {
-  0x28, 0xE1, 0x96, 0xAA, 0x03, 0x00, 0x00, 0x7D }; // Atribui os endereços dos sensores de temperatura. Adicionar / Alterar os endereços conforme necessário.
-
-//****************************************************************************************************
 //****************** Variáveis de textos e fontes ****************************************************
 //****************************************************************************************************
 #define LARGE true
 #define SMALL false
-extern uint8_t SmallFont[];   // Declara que fontes vamos usar
+extern uint8_t RusFont1[];   // Declara que fontes vamos usar
 extern uint8_t BigFont[];     // Declara que fontes vamos usar
-char buffer[45];
+char buffer[50];
 
 //****************************************************************************************************
 //****************** Define funções dos pinos digitais e analógicos **********************************
 //****************************************************************************************************
 // Pinos 0 e 1 reservados para a porta serial 0.
-const int alarmPin = 0;          // Pino que aciona o alarme
-const int desativarFanPin = 1;   // Pino que desativa os coolers.
+const byte alarmPin = 0;          // Pino que aciona o alarme
+const byte desativarFanPin = 1;   // Pino que desativa os coolers.
 // Pino 2 reservado para INT do RFM12B.
 // Pinos 3, 4, 5, 6 e 7 reservados para o Touch.
 // Pino 5 também é o chip select do cartãoSD.
-const int ledPinUV = 8;         // Pino que liga os leds violeta
-const int ledPinBlue = 9;       // Pino que liga os leds azuis
-const int ledPinWhite = 10;     // Pino que liga os leds brancos
-const int ledPinRoyBlue = 11;   // Pino que liga os leds "royal blue"
-const int ledPinRed = 12;       // Pino que liga os leds vermelho
-const int fanPin = 13;          // Pino que controla a velocidade das ventoinhas do dissipador
+const byte ledPinUV = 8;         // Pino que liga os leds violeta
+const byte ledPinBlue = 9;       // Pino que liga os leds azuis
+const byte ledPinWhite = 10;     // Pino que liga os leds brancos
+const byte ledPinRoyBlue = 11;   // Pino que liga os leds "royal blue"
+const byte ledPinRed = 12;       // Pino que liga os leds vermelho
+const byte fanPin = 13;          // Pino que controla a velocidade das ventoinhas do dissipador
 // Pinos 14 e 15 reservados para a porta serial 3 que se comunica com os "Stamps"
-const int multiplexadorS0Pin = 16; // Pino S0 de controle dos stamps
-const int multiplexadorS1Pin = 17; // Pino S1 de controle dos stamps
+const byte multiplexadorS0Pin = 16; // Pino S0 de controle dos stamps
+const byte multiplexadorS1Pin = 17; // Pino S1 de controle dos stamps
 // Pinos 18 e 19 reservados para o RTC.
 // Pinos 20 e 21 reservados para comunicação I2C do PCF8575.
 // Pinos 22 à 41 reservados para o LCD.
-const int aquecedorPin = 42;   // Pino que liga o aquecedor
-const int chillerPin = 43;     // Pino que liga o chiller
-const int ledPinMoon = 44;     // Pino que liga os leds da luz noturna
-const int wavemaker1 = 45;     // Pino que controla o wavemaker 1
-const int wavemaker2 = 46;     // Pino que controla o wavemaker 2
-const int ozonizadorPin = 47;  // Pino que liga o ozonizador
-const int reatorPin = 48;      // Pino que liga o CO2 do reator.
-// Pino 49 reservado para os sensores de temperatura
+const byte aquecedorPin = 42;   // Pino que liga o aquecedor
+const byte chillerPin = 43;     // Pino que liga o chiller
+const byte ledPinMoon = 44;     // Pino que liga os leds da luz noturna
+const byte wavemaker1 = 45;     // Pino que controla o wavemaker 1
+const byte wavemaker2 = 46;     // Pino que controla o wavemaker 2
+const byte ozonizadorPin = 47;  // Pino que liga o ozonizador
+const byte reatorPin = 48;      // Pino que liga o CO2 do reator.
+const byte sensoresPin = 49;    // Pino que lê os sensores de temperatura
 // Pinos 50, 51 e 52 reservados para comunicação SPI
 // Pino 53 reservado para "select slave do ethernet shield.
 const int sensor1 = A0;        // Pino analógico que verifica se há tensão na bóia da quarentena.
@@ -129,24 +112,47 @@ const int dosadora5 = A13;     // Bomba dosadora 5
 const int dosadora6 = A14;     // Bomba dosadora 6
 // Pino A15 reservado para SS do RFM12B
 ///**************** PCF8575TS **********************************
-const int temporizador1 = 80;       // P0       // Pino que liga o timer 1.
-const int temporizador2 = 81;       // P1       // Pino que liga o timer 2.
-const int temporizador3 = 82;       // P2       // Pino que liga o timer 3.
-const int temporizador4 = 83;       // P3       // Pino que liga o timer 4.
-const int temporizador5 = 84;       // P4       // Pino que liga o timer 5.
-const int solenoide1Pin = 85;       // P5       // Liga a reposicao de água doce.
+const byte temporizador1 = 80;       // P0       // Pino que liga o timer 1.
+const byte temporizador2 = 81;       // P1       // Pino que liga o timer 2.
+const byte temporizador3 = 82;       // P2       // Pino que liga o timer 3.
+const byte temporizador4 = 83;       // P3       // Pino que liga o timer 4.
+const byte temporizador5 = 84;       // P4       // Pino que liga o timer 5.
+const byte solenoide1Pin = 85;       // P5       // Liga a reposicao de água doce.
+
+//****************************************************************************************************
+//***************** Variáveis dos sensores de temperatura ********************************************
+//****************************************************************************************************
+OneWire OneWireBus(sensoresPin);                   // Sensores de temperatura
+DallasTemperature sensors(&OneWireBus);  // Passa a nossa referência OneWire para sensores de temperatura.
+DeviceAddress sensor_agua; // Atribui os endereços dos sensores de temperatura.
+DeviceAddress sensor_dissipador; // Atribui os endereços dos sensores de temperatura.
+DeviceAddress sensor_ambiente; // Atribui os endereços dos sensores de temperatura.
+byte sonda_associada_1 = 1;
+byte sonda_associada_2 = 2;
+byte sonda_associada_3 = 3;
+
+//****************************************************************************************************
+//***************** Variáveis temporárias dos sensores de temperatura ********************************
+//****************************************************************************************************
+DeviceAddress tempDeviceAddress; // Endereço temporário da sonda.
+DeviceAddress sonda1; // Endereço temporário da sonda1.
+DeviceAddress sonda2; // Endereço temporário da sonda2.
+DeviceAddress sonda3; // Endereço temporário da sonda3.
+byte sonda_associada_1_temp = 0;
+byte sonda_associada_2_temp = 0;
+byte sonda_associada_3_temp = 0;
 
 //*******************************************************************************************************
 //********************** Funções do RTC ********************************************************************
 //*******************************************************************************************************
-//        (SDA,SCL)
+//       (SDA,SCL)
 DS1307 rtc(20, 21); // Indica em quais pinos o RTC está conectado.
 Time t_temp, t;
 
 //*******************************************************************************************************
 //********************** Variáveis das fuções do touch screen e tela inicial ****************************
 //*******************************************************************************************************
-UTFT        myGLCD("X", 38,39,40,41);   //"X" é o modelo do LCD
+UTFT        myGLCD(X, 38,39,40,41);   //"X" é o modelo do LCD
 UTouch      myTouch(6,5,4,3,2); 
 //UTouch      myTouch(7,6,5,4,3);
 
@@ -156,54 +162,30 @@ String day;
 int whiteLed, blueLed, azulroyalLed, vermelhoLed, violetaLed;    // Valor anterior de PWM.
 int dispScreen = 0;
 
-// tela inicio =0, 
-// tela de menu = 1, 
-// tela do relogio = 2,
-// tela de teste = 3,
-// tela controle de temperatua = 4, 
-// tela alterar valores dos led = 5
-// tela para alterar potencia dos leds = 6,
-// tela tpa = 7, 
-// tela config. bombas dosadoras = 8,
-// tela graficos = 9,
-// tela wavemaker = 10, 
-// tela grafico temperatura = 11,
-// tela grafico orp = 12, 
-// tela grafico ph do aquario = 13,
-// tela configuracao parametros = 14, 
-// tela configuracao de ph do reator de calcio = 15, 
-// tela configuracao orp = 16, 
-// tela grafico de ph do reator de calcio = 17, 
-// tela configuracao de ph do aquario = 18, 
-// tela grafico de densidade = 19,
-// tela configurar densidade = 20, 
-// tela esolha uma dosadora = 21,.... 
 //*****************************************************************************************
 //*********************** Parâmetros ******************************************************
 //*****************************************************************************************
 byte status_parametros = 0x0;
-//bit 0;    tempCflag    // Sinaliza que o aquecedor está ligado / desligado
-//bit 1;    tempHflag    // Sinaliza que o chiller está ligado / desligado
-//bit 2;    tempAflag    // Sinaliza que o alarme de temperatura está ativo
-//bit 3;    PHAAflag     // Sinaliza que o PH do aquário esta fora do especificado
-//bit 4;    DENAflag     // Sinaliza que a densidade esta fora do especificado
-//bit 5;    PHRflag      // Sinaliza que CO2 esta ligado / desligado
-//bit 6;    PHRAflag     // Sinaliza que o PH do reator de cálcio esta fora do especificado
-//bit 7;    ORPflag      // Sinaliza que o ozonizador esta ligado / desligado
+//bit 0;   // Sinaliza que o aquecedor está ligado / desligado
+//bit 1;   // Sinaliza que o chiller está ligado / desligado
+//bit 2;   // Sinaliza que o alarme de temperatura está ativo
+//bit 3;   // Sinaliza que o PH do aquário esta fora do especificado
+//bit 4;   // Sinaliza que a densidade esta fora do especificado
+//bit 5;   // Sinaliza que CO2 esta ligado / desligado
+//bit 6;   // Sinaliza que o PH do reator de cálcio esta fora do especificado
+//bit 7;   // Sinaliza que o ozonizador esta ligado / desligado
 byte status_parametros_1 = 0x0;
-//bit 0     ORPAflag = 0;        // Sinaliza que a ORP esta fora do especificado
+//bit 0    // Sinaliza que a ORP esta fora do especificado
 
 //*****************************************************************************************
 //*********************** Variáveis do controle de temperatura da água ********************
 //*****************************************************************************************
 float tempC = 0;              // Temperatura da água
-float setTempC = 0;          // Temperatura desejada
-float offTempC = 0;          // Variacao permitida da temperatura
-float alarmTempC = 0;        // Variacao para acionar o alarme de temperatura da água
+float setTempC = 25.5;          // Temperatura desejada
+float offTempC = 0.5;          // Variação permitida da temperatura
+float alarmTempC = 1;        // Variacao para acionar o alarme de temperatura da água
 int contador_temp = 0;
 float temperatura_agua_temp = 0; // Temperatura temporária
-float temperatura_dissipador_temp = 0; // Temperatura temporária
-
 
 //*****************************************************************************************
 //************************ Variáveis do controle do PH do aquário *************************
@@ -217,9 +199,9 @@ float alarmPHA = 0;         // Variação para acionar o alarme de ph do aquári
 //************************ Variáveis de controle de densidade *****************************
 //*****************************************************************************************
 int DEN = 0;                 // Densidade
-int setDEN = 0;             // Densidade desejada
-int offDEN = 0;             // Variação permitida da densidade
-int alarmDEN = 0;           // Variação para acionar o alarme de densidade
+int setDEN = 1025;             // Densidade desejada
+byte offDEN = 2;             // Variação permitida da densidade
+byte alarmDEN = 1;           // Variação para acionar o alarme de densidade
 
 //*****************************************************************************************
 //************************ Variáveis de controle do PH do reator de cálcio ****************
@@ -233,20 +215,37 @@ float alarmPHR = 0;         // Variacao para acionar o alarme do PH do reator de
 //************************ Variáveis de controle da  ORP **********************************
 //*****************************************************************************************
 int ORP = 0;                 // Valores ORP
-float setORP = 0;           // ORP desejada
-float offORP = 0;           // Variação permitida da ORP
-float alarmORP = 0;         // Variacão para acionar o alarme da ORP
+int setORP = 420;           // ORP desejada
+byte offORP = 10;           // Variação permitida da ORP
+byte alarmORP = 10;         // Variacão para acionar o alarme da ORP
 
 //*****************************************************************************************
 //************************ Variáveis de controle de velocidade dos coolers ****************
 //*****************************************************************************************
-const int HtempMin = 30;    // Declara a temperatura para iniciar o funcionamento das ventoinhas do dissipador 
-const int HtempMax = 40;    // Declara que as ventoinhas devem estar em sua velocidade máxima quando o dissipador estiver com 40°c
+float HtempMin = 30.5;    // Declara a temperatura para iniciar o funcionamento das ventoinhas do dissipador 
+float HtempMax = 40.5;    // Declara que as ventoinhas devem estar em sua velocidade máxima quando o dissipador estiver com 40°c
 
 //*****************************************************************************************
-//************************ Variável de controle da temperatura do dissipador **************
+//************** Variáveis temperárias de controle de velocidade dos coolers **************
 //*****************************************************************************************
-float tempH = 0;            // Temperatura do dissipador
+float HtempMin_temp = 0;    // Declara a temperatura para iniciar o funcionamento das ventoinhas do dissipador 
+float HtempMax_temp = 0;    // Declara que as ventoinhas devem estar em sua velocidade máxima quando o dissipador estiver com 40°c
+
+//*****************************************************************************************
+//*********************** Variáveis de controle da temperatura do dissipador **************
+//*****************************************************************************************
+float tempH = 0;   // Temperatura do dissipador
+byte tempHR = 60;   // Temperatura para reduzir potência dos leds
+byte potR = 30;     // Porcentagem a ser reduzida.
+
+//*****************************************************************************************
+//*********** Variáveis temporárias de controle da temperatura do dissipador **************
+//*****************************************************************************************
+float temperatura_dissipador_temp = 0; // Temperatura temporária
+byte tempHR_t = 0;   // Temperatura temporária para reduzir potência dos leds
+byte potR_t = 0;     // Porcentagem temporária a ser reduzida.
+boolean temperatura_alta = false; // Sinaliza que a temperatura dos leds está alta.
+boolean temperatura_baixou = false; // Sinaliza que a temperatura dos leds esteve alta.
 
 //*****************************************************************************************
 //************************ Variáveis temporárias de controle de temperatura da água *******
@@ -272,16 +271,16 @@ float PHA2beA;
 //*****************************************************************************************
 //************************ Variáveis temporárias de controle da ORP ***********************
 //*****************************************************************************************
-float ORP2beS;               //orp temporaria
-float ORP2beO;
-float ORP2beA;
+int ORP2beS;               //orp temporaria
+byte ORP2beO;
+byte ORP2beA;
 
 //*****************************************************************************************
 //************************ Variáveis temporárias de controle da densidade *****************
 //*****************************************************************************************
-float DEN2beS;            
-float DEN2beO;
-float DEN2beA;
+int DEN2beS;            
+byte DEN2beO;
+byte DEN2beA;
 
 //*****************************************************************************************
 //************************ Variáveis de controle da iluminação ****************************
@@ -290,66 +289,83 @@ int LedChangTime = 0;             // Página de alteração do leds, tempo e val
 boolean MeanWell = true;  // Se estiver usando drivers cuja potência máxima seja obtida aplicando zero volt e a mínima seja 5 volts altere de "true" para "false".
 boolean LEDtestTick = false;   // Acelerar o tempo durante o teste dos leds. 
 int min_cnt ;
-int bled_out;
-int wled_out;
-int rbled_out;
-int rled_out;
-int uvled_out;
-int bled_out_temp;
-int wled_out_temp;
-int rbled_out_temp;
-int rled_out_temp;
-int uvled_out_temp;
-int moonled_out;
+byte bled_out;
+byte wled_out;
+byte rbled_out;
+byte rled_out;
+byte uvled_out;
+byte bled_out_temp;
+byte wled_out_temp;
+byte rbled_out_temp;
+byte rled_out_temp;
+byte uvled_out_temp;
+byte moonled_out;
 boolean periodo_selecionado = false;
-int y_tocado;
+byte y_tocado;
 boolean teste_em_andamento = false;
-int b_out, w_out, moon_out, rb_out, r_out, uv_out;
 byte cor_selecionada = 0x0;
 // bit 1 = led branco
 // bit 2 = led azul
 // bit 3 = led azul royal
 // bit 4 = led vermelho
 // bit 5 = led violeta
-int setor_selecionado = 0;
+byte setor_selecionado = 0;
 boolean mensagem = true;
 float suavizar = 0.0; // LEDS iniciam suavemente e chega ao valor especificado em 50 segundos.
-
-//*************************************************************************************************
-//***************LED design ***********************************************************
-//*************************************************************************************************     
-const byte cor_canal1[] = {
-  255, 255, 255};  // Branco 
-const byte cor_canal2[] = {
-  9, 184, 255};    // Azul
-const byte cor_canal3[] = {
-  58, 95, 205};    // Azul Royal 
-const byte cor_canal4[] = {
-  255, 0, 0};      // Vermelho
-const byte cor_canal5[] = {
-  224, 102, 255};  // Violeta
+byte predefinido = 0;
+byte pre_definido_ativado = 0;
+byte pwm_pre_definido = 0;
+byte led_on_minuto; // Horário para ligar leds.
+byte led_on_hora;
+byte led_off_minuto; // Horário para desligar leds.
+byte led_off_hora;
+boolean horario_alterado = false;
+boolean hora_modificada = false;
+byte amanhecer_anoitecer = 60;
+boolean teste_iniciado = false;
 
 //*****************************************************************************************
-//************************ Variáveis da fase lunar ******************************************
+//**************** Variáveis temporárias de controle da iluminação ************************
+//*****************************************************************************************
+byte predefinido_t = 0;
+byte pre_definido_ativado_t = 0;
+byte pwm_pre_definido_t = 0;
+byte led_on_minuto_t; // Horário temporário
+byte led_on_hora_t;
+byte led_off_minuto_t;
+byte led_off_hora_t;
+byte amanhecer_anoitecer_t = 0;
+
+//*****************************************************************************************
+//************************* LED design ****************************************************
+//*****************************************************************************************     
+const byte cor_canal1[] = {255, 255, 255};  // Branco 
+const byte cor_canal2[] = {9, 184, 255};    // Azul
+const byte cor_canal3[] = {58, 95, 205};    // Azul Royal 
+const byte cor_canal4[] = {255, 0, 0};      // Vermelho
+const byte cor_canal5[] = {224, 102, 255};  // Violeta
+
+//*****************************************************************************************
+//************************ Variáveis da fase lunar ****************************************
 //*****************************************************************************************
 String LP;
-int MaxI , tMaxI;  // Potência  máxima na Lua cheia.             
-int MinI, tMinI;  // Potência  mínima na Lua nova.
+byte MaxI , tMaxI;  // Potência  máxima na Lua cheia.             
+byte MinI, tMinI;  // Potência  mínima na Lua nova.
 
 //*****************************************************************************************
 //************************ Variáveis da TPA automática ************************************
 //*****************************************************************************************
-int hora = 0;
-int minuto = 0;
-int duracaomaximatpa = 0;
-int segunda = 0;
-int terca = 0;
-int quarta = 0;
-int quinta = 0;
-int sexta = 0;
-int sabado = 0;
-int domingo = 0;
-int tpa = 0;                             // Controla os estágios da TPA automática
+byte hora = 0;
+byte minuto = 0;
+byte duracaomaximatpa = 0;
+byte segunda = 0;
+byte terca = 0;
+byte quarta = 0;
+byte quinta = 0;
+byte sexta = 0;
+byte sabado = 0;
+byte domingo = 0;
+byte tpa = 0;                             // Controla os estágios da TPA automática
 byte tpa_status = 0x0; // 0 = false e 1 = true
 // bit 1 = Sinaliza TPA automática em andamento
 // bit 2 = Sinaliza falha durante a TPA automática          
@@ -360,22 +376,21 @@ unsigned long shiftedmillis = 0;       // Evita que uma tpa inicie próximo do m
 //*****************************************************************************************
 //************************ Variáveis temporárias da TPA (Troca Parcial de Água) automática ************************************
 //*****************************************************************************************
-int temp2hora;
-int temp2minuto;
-int temp2duracaomaximatpa;
-int temp2segunda;
-int temp2terca;
-int temp2quarta;
-int temp2quinta;
-int temp2sexta;
-int temp2sabado;
-int temp2domingo;
+byte temp2hora;
+byte temp2minuto;
+byte temp2duracaomaximatpa;
+byte temp2segunda;
+byte temp2terca;
+byte temp2quarta;
+byte temp2quinta;
+byte temp2sexta;
+byte temp2sabado;
+byte temp2domingo;
 
 //****************************************************************************************
 //*********************** Variáveis de controle das funções que utilizam o cartao SD *****
 //****************************************************************************************
 unsigned long logtempminutoantes = 0;  // Variável que controla o tempo para gravação dos parâmetros no cartão SD 
-const int chipselect = 4;            // Para utilizar o Sd card do LCD altere para 53
 Sd2Card card;
 SdFile file;
 SdFile root;
@@ -394,16 +409,14 @@ boolean nivel_status = 0;             // Sinaliza nivel baixo em um dos aquário
 //*****************************************************************************************
 //************************ Variável de controle da reposição de água doce *****************
 //*****************************************************************************************
-boolean ato = 0;                      // Sinaliza reposição ligada / desligada
-
+byte Status = 0x0;
+// bit 1 // Sinaliza reposição ligada / desligada
+// bit 2 
+// bit 3 
 //*****************************************************************************************
 //************************ Variáveis de envio da informações ao cosm.com ******************
 //*****************************************************************************************
 long previous_Millis = 0; // Variável que controla o tempo para envio dos dados
-byte Status = 0x0;
-// bit 1 int reposicao_status;
-// bit 2 niveis_status;
-// bit 3 tpa_status;
 
 //*****************************************************************************************
 //************************* Funções do ethernet shield ************************************
@@ -411,12 +424,9 @@ byte Status = 0x0;
 boolean Ethernet_Shield = false; // Altere para "false" caso não tenha um Ethernet Shield conectado ao Arduino.
 #define FEED    "xxxxx"               // Número do projeto(cosm.com).
 #define APIKEY  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" //Senha do projeto(cosm.com)
-static byte mymac[] = {
-  0x54, 0x55, 0x58, 0x10, 0x00, 0x26}; // Este mac deve ser único na rede.
-static byte myip[] = {
-  192, 168, 2, 105};
-static byte gwip[] = {
-  192, 168, 2, 1};
+static byte mymac[] = {0x54, 0x55, 0x58, 0x10, 0x00, 0x26}; // Este mac deve ser único na rede.
+static byte myip[] = {192, 168, 2, 105};
+static byte gwip[] = {192, 168, 2, 1};
 char website[] PROGMEM = "api.cosm.com";
 byte Ethernet::buffer[500];
 Stash stash;
@@ -442,23 +452,34 @@ int done = 0;
 //*****************************************************************************************
 char stCurrent[7]="";
 char limpar_senha [7] = "";
-int stCurrentLen=0;
-char senha [7] = {
-  '1','2','3','4','5','6','\0'}; // Insira sua senha aqui. O caracter '\0' não deve ser alterado.
+byte stCurrentLen=0;
+char senha [7] = {'1','2','3','4','5','6','\0'}; // Insira sua senha aqui. O caracter '\0' não deve ser alterado.
 
 //*****************************************************************************************
 //************************** Variáveis dosadoras ******************************************
 //*****************************************************************************************
 boolean dosadoras = false; //Altere para "false" caso não tenha as dosadoras.
+float fator_calib_dosadora_1 = 35.1; // Fator de calibração inicial 
+float fator_calib_dosadora_2 = 35.2; // Fator de calibração inicial  
+float fator_calib_dosadora_3 = 35.3; // Fator de calibração inicial  
+float fator_calib_dosadora_4 = 35.4; // Fator de calibração inicial  
+float fator_calib_dosadora_5 = 35.5; // Fator de calibração inicial  
+float fator_calib_dosadora_6 = 35.6; // Fator de calibração inicial  
+float dose_dosadora_1_personalizada = 200.0;
+float dose_dosadora_2_personalizada = 250.0;
+float dose_dosadora_3_personalizada = 300.0;
+float dose_dosadora_4_personalizada = 350.0;
+float dose_dosadora_5_personalizada = 400.0;
+float dose_dosadora_6_personalizada = 450.0;
 char time9;
 char time10;
 char time11;
 char time15;
 char time16;
 char time17;
-int contador = 0;
-int minuto01 = 0;
-int minuto11 = 0;
+byte contador = 0;
+byte minuto01 = 0;
+byte minuto11 = 0;
 long tempo_dosagem = 0;
 float dose_dosadora_1_manual = 0.0;
 float dose_dosadora_2_manual = 0.0;
@@ -479,93 +500,81 @@ byte segunda_dosagem_personalizada = 0x0; // 0 = false, 1 = true
 // bit 4 = dosadora 4
 // bit 5 = dosadora 5
 // bit 6 = dosadora 6
-float fator_calib_dosadora_1 = 0.0;
-float fator_calib_dosadora_2 = 0.0;
-float fator_calib_dosadora_3 = 0.0;
-float dose_dosadora_1_personalizada = 0.0;
-float dose_dosadora_2_personalizada = 0.0;
-float dose_dosadora_3_personalizada = 0.0;
-int hora_inicial_dosagem_personalizada_1 = 0;
-int minuto_inicial_dosagem_personalizada_1 = 0;
-int hora_final_dosagem_personalizada_1 = 0;
-int minuto_final_dosagem_personalizada_1 = 0;
-int terca_dosagem_personalizada_1 = 0;
-int quarta_dosagem_personalizada_1 = 0;
-int quinta_dosagem_personalizada_1 = 0;
-int sexta_dosagem_personalizada_1 = 0;
-int sabado_dosagem_personalizada_1 = 0;
-int domingo_dosagem_personalizada_1 = 0;
-int hora_inicial_dosagem_personalizada_2 = 0;
-int minuto_inicial_dosagem_personalizada_2 = 0;
-int hora_final_dosagem_personalizada_2 = 0;
-int minuto_final_dosagem_personalizada_2 = 0;
-int terca_dosagem_personalizada_2 = 0;
-int quarta_dosagem_personalizada_2 = 0;
-int quinta_dosagem_personalizada_2 = 0;
-int sexta_dosagem_personalizada_2 = 0;
-int sabado_dosagem_personalizada_2 = 0;
-int domingo_dosagem_personalizada_2 = 0;
-int hora_inicial_dosagem_personalizada_3 = 0;
-int minuto_inicial_dosagem_personalizada_3 = 0;
-int hora_final_dosagem_personalizada_3 = 0;
-int minuto_final_dosagem_personalizada_3 = 0;
-int terca_dosagem_personalizada_3 = 0;
-int quarta_dosagem_personalizada_3 = 0;
-int quinta_dosagem_personalizada_3 = 0;
-int sexta_dosagem_personalizada_3 = 0;
-int sabado_dosagem_personalizada_3 = 0;
-int domingo_dosagem_personalizada_3 = 0;
-int quantidade_dose_dosadora_1_personalizada = 0;
-int quantidade_dose_dosadora_2_personalizada = 0;
-int quantidade_dose_dosadora_3_personalizada = 0;
-float fator_calib_dosadora_4 = 0.0;
-float fator_calib_dosadora_5 = 0.0;
-float fator_calib_dosadora_6 = 0.0;
-float dose_dosadora_4_personalizada = 0.0;
-float dose_dosadora_5_personalizada = 0.0;
-float dose_dosadora_6_personalizada = 0.0;
-int hora_inicial_dosagem_personalizada_4 = 0;
-int minuto_inicial_dosagem_personalizada_4 = 0;
-int hora_final_dosagem_personalizada_4 = 0;
-int minuto_final_dosagem_personalizada_4 = 0;
-int terca_dosagem_personalizada_4 = 0;
-int quarta_dosagem_personalizada_4 = 0;
-int quinta_dosagem_personalizada_4 = 0;
-int sexta_dosagem_personalizada_4 = 0;
-int sabado_dosagem_personalizada_4 = 0;
-int domingo_dosagem_personalizada_4 = 0;
-int hora_inicial_dosagem_personalizada_5 = 0;
-int minuto_inicial_dosagem_personalizada_5 = 0;
-int hora_final_dosagem_personalizada_5 = 0;
-int minuto_final_dosagem_personalizada_5 = 0;
-int terca_dosagem_personalizada_5 = 0;
-int quarta_dosagem_personalizada_5 = 0;
-int quinta_dosagem_personalizada_5 = 0;
-int sexta_dosagem_personalizada_5 = 0;
-int sabado_dosagem_personalizada_5 = 0;
-int domingo_dosagem_personalizada_5 = 0;
+byte hora_inicial_dosagem_personalizada_1 = 0;
+byte minuto_inicial_dosagem_personalizada_1 = 0;
+byte hora_final_dosagem_personalizada_1 = 0;
+byte minuto_final_dosagem_personalizada_1 = 0;
+byte terca_dosagem_personalizada_1 = 0;
+byte quarta_dosagem_personalizada_1 = 0;
+byte quinta_dosagem_personalizada_1 = 0;
+byte sexta_dosagem_personalizada_1 = 0;
+byte sabado_dosagem_personalizada_1 = 0;
+byte domingo_dosagem_personalizada_1 = 0;
+byte hora_inicial_dosagem_personalizada_2 = 0;
+byte minuto_inicial_dosagem_personalizada_2 = 0;
+byte hora_final_dosagem_personalizada_2 = 0;
+byte minuto_final_dosagem_personalizada_2 = 0;
+byte terca_dosagem_personalizada_2 = 0;
+byte quarta_dosagem_personalizada_2 = 0;
+byte quinta_dosagem_personalizada_2 = 0;
+byte sexta_dosagem_personalizada_2 = 0;
+byte sabado_dosagem_personalizada_2 = 0;
+byte domingo_dosagem_personalizada_2 = 0;
+byte hora_inicial_dosagem_personalizada_3 = 0;
+byte minuto_inicial_dosagem_personalizada_3 = 0;
+byte hora_final_dosagem_personalizada_3 = 0;
+byte minuto_final_dosagem_personalizada_3 = 0;
+byte terca_dosagem_personalizada_3 = 0;
+byte quarta_dosagem_personalizada_3 = 0;
+byte quinta_dosagem_personalizada_3 = 0;
+byte sexta_dosagem_personalizada_3 = 0;
+byte sabado_dosagem_personalizada_3 = 0;
+byte domingo_dosagem_personalizada_3 = 0;
+byte quantidade_dose_dosadora_1_personalizada = 0;
+byte quantidade_dose_dosadora_2_personalizada = 0;
+byte quantidade_dose_dosadora_3_personalizada = 0;
+byte hora_inicial_dosagem_personalizada_4 = 0;
+byte minuto_inicial_dosagem_personalizada_4 = 0;
+byte hora_final_dosagem_personalizada_4 = 0;
+byte minuto_final_dosagem_personalizada_4 = 0;
+byte terca_dosagem_personalizada_4 = 0;
+byte quarta_dosagem_personalizada_4 = 0;
+byte quinta_dosagem_personalizada_4 = 0;
+byte sexta_dosagem_personalizada_4 = 0;
+byte sabado_dosagem_personalizada_4 = 0;
+byte domingo_dosagem_personalizada_4 = 0;
+byte hora_inicial_dosagem_personalizada_5 = 0;
+byte minuto_inicial_dosagem_personalizada_5 = 0;
+byte hora_final_dosagem_personalizada_5 = 0;
+byte minuto_final_dosagem_personalizada_5 = 0;
+byte terca_dosagem_personalizada_5 = 0;
+byte quarta_dosagem_personalizada_5 = 0;
+byte quinta_dosagem_personalizada_5 = 0;
+byte sexta_dosagem_personalizada_5 = 0;
+byte sabado_dosagem_personalizada_5 = 0;
+byte domingo_dosagem_personalizada_5 = 0;
 int hora_inicial_dosagem_personalizada_6 = 0;
-int minuto_inicial_dosagem_personalizada_6 = 0;
-int hora_final_dosagem_personalizada_6 = 0;
-int minuto_final_dosagem_personalizada_6 = 0;
-int terca_dosagem_personalizada_6 = 0;
-int quarta_dosagem_personalizada_6 = 0;
-int quinta_dosagem_personalizada_6 = 0;
-int sexta_dosagem_personalizada_6 = 0;
-int sabado_dosagem_personalizada_6 = 0;
-int domingo_dosagem_personalizada_6 = 0;
-int quantidade_dose_dosadora_4_personalizada = 0;
-int quantidade_dose_dosadora_5_personalizada = 0;
-int quantidade_dose_dosadora_6_personalizada = 0;
+byte minuto_inicial_dosagem_personalizada_6 = 0;
+byte hora_final_dosagem_personalizada_6 = 0;
+byte minuto_final_dosagem_personalizada_6 = 0;
+byte terca_dosagem_personalizada_6 = 0;
+byte quarta_dosagem_personalizada_6 = 0;
+byte quinta_dosagem_personalizada_6 = 0;
+byte sexta_dosagem_personalizada_6 = 0;
+byte sabado_dosagem_personalizada_6 = 0;
+byte domingo_dosagem_personalizada_6 = 0;
+byte quantidade_dose_dosadora_4_personalizada = 0;
+byte quantidade_dose_dosadora_5_personalizada = 0;
+byte quantidade_dose_dosadora_6_personalizada = 0;
 //*****************************************************************************************
 //************************** Variáveis temporárias das dosadoras **************************
 //*****************************************************************************************
-byte    modo_personalizado_on_1_temp2;
-byte    modo_personalizado_on_2_temp2;
-byte    modo_personalizado_on_3_temp2;
-byte    modo_personalizado_on_4_temp2;
-byte    modo_personalizado_on_5_temp2;
-byte    modo_personalizado_on_6_temp2;
+byte  modo_personalizado_on_1_temp2;
+byte  modo_personalizado_on_2_temp2;
+byte  modo_personalizado_on_3_temp2;
+byte  modo_personalizado_on_4_temp2;
+byte  modo_personalizado_on_5_temp2;
+byte  modo_personalizado_on_6_temp2;
 float fator_calib_dosadora_1_temp2;
 float fator_calib_dosadora_2_temp2;
 float fator_calib_dosadora_3_temp2;
@@ -575,42 +584,42 @@ float dose_dosadora_3_personalizada_temp2;
 float dose_dosadora_1_manual_temp2;
 float dose_dosadora_2_manual_temp2;
 float dose_dosadora_3_manual_temp2;
-int temp2hora_inicial_dosagem_personalizada_1;
-int temp2minuto_inicial_dosagem_personalizada_1;
-int temp2hora_final_dosagem_personalizada_1;
-int temp2minuto_final_dosagem_personalizada_1;
-int temp2segunda_dosagem_personalizada_1;
-int temp2terca_dosagem_personalizada_1;
-int temp2quarta_dosagem_personalizada_1;
-int temp2quinta_dosagem_personalizada_1;
-int temp2sexta_dosagem_personalizada_1;
-int temp2sabado_dosagem_personalizada_1;
-int temp2domingo_dosagem_personalizada_1;
-int temp2hora_inicial_dosagem_personalizada_2;
-int temp2minuto_inicial_dosagem_personalizada_2;
-int temp2hora_final_dosagem_personalizada_2;
-int temp2minuto_final_dosagem_personalizada_2;
-int temp2segunda_dosagem_personalizada_2;
-int temp2terca_dosagem_personalizada_2;
-int temp2quarta_dosagem_personalizada_2;
-int temp2quinta_dosagem_personalizada_2;
-int temp2sexta_dosagem_personalizada_2;
-int temp2sabado_dosagem_personalizada_2;
-int temp2domingo_dosagem_personalizada_2;
-int temp2hora_inicial_dosagem_personalizada_3;
-int temp2minuto_inicial_dosagem_personalizada_3;
-int temp2hora_final_dosagem_personalizada_3;
-int temp2minuto_final_dosagem_personalizada_3;
-int temp2segunda_dosagem_personalizada_3;
-int temp2terca_dosagem_personalizada_3;
-int temp2quarta_dosagem_personalizada_3;
-int temp2quinta_dosagem_personalizada_3;
-int temp2sexta_dosagem_personalizada_3;
-int temp2sabado_dosagem_personalizada_3;
-int temp2domingo_dosagem_personalizada_3;
-int quantidade_dose_dosadora_1_personalizada_temp2;
-int quantidade_dose_dosadora_2_personalizada_temp2;
-int quantidade_dose_dosadora_3_personalizada_temp2;
+byte temp2hora_inicial_dosagem_personalizada_1;
+byte temp2minuto_inicial_dosagem_personalizada_1;
+byte temp2hora_final_dosagem_personalizada_1;
+byte temp2minuto_final_dosagem_personalizada_1;
+byte temp2segunda_dosagem_personalizada_1;
+byte temp2terca_dosagem_personalizada_1;
+byte temp2quarta_dosagem_personalizada_1;
+byte temp2quinta_dosagem_personalizada_1;
+byte temp2sexta_dosagem_personalizada_1;
+byte temp2sabado_dosagem_personalizada_1;
+byte temp2domingo_dosagem_personalizada_1;
+byte temp2hora_inicial_dosagem_personalizada_2;
+byte temp2minuto_inicial_dosagem_personalizada_2;
+byte temp2hora_final_dosagem_personalizada_2;
+byte temp2minuto_final_dosagem_personalizada_2;
+byte temp2segunda_dosagem_personalizada_2;
+byte temp2terca_dosagem_personalizada_2;
+byte temp2quarta_dosagem_personalizada_2;
+byte temp2quinta_dosagem_personalizada_2;
+byte temp2sexta_dosagem_personalizada_2;
+byte temp2sabado_dosagem_personalizada_2;
+byte temp2domingo_dosagem_personalizada_2;
+byte temp2hora_inicial_dosagem_personalizada_3;
+byte temp2minuto_inicial_dosagem_personalizada_3;
+byte temp2hora_final_dosagem_personalizada_3;
+byte temp2minuto_final_dosagem_personalizada_3;
+byte temp2segunda_dosagem_personalizada_3;
+byte temp2terca_dosagem_personalizada_3;
+byte temp2quarta_dosagem_personalizada_3;
+byte temp2quinta_dosagem_personalizada_3;
+byte temp2sexta_dosagem_personalizada_3;
+byte temp2sabado_dosagem_personalizada_3;
+byte temp2domingo_dosagem_personalizada_3;
+byte quantidade_dose_dosadora_1_personalizada_temp2;
+byte quantidade_dose_dosadora_2_personalizada_temp2;
+byte quantidade_dose_dosadora_3_personalizada_temp2;
 float fator_calib_dosadora_4_temp2;
 float fator_calib_dosadora_5_temp2;
 float fator_calib_dosadora_6_temp2;
@@ -620,42 +629,42 @@ float dose_dosadora_6_personalizada_temp2;
 float dose_dosadora_4_manual_temp2;
 float dose_dosadora_5_manual_temp2;
 float dose_dosadora_6_manual_temp2;
-int temp2hora_inicial_dosagem_personalizada_4;
-int temp2minuto_inicial_dosagem_personalizada_4;
-int temp2hora_final_dosagem_personalizada_4;
-int temp2minuto_final_dosagem_personalizada_4;
-int temp2segunda_dosagem_personalizada_4;
-int temp2terca_dosagem_personalizada_4;
-int temp2quarta_dosagem_personalizada_4;
-int temp2quinta_dosagem_personalizada_4;
-int temp2sexta_dosagem_personalizada_4;
-int temp2sabado_dosagem_personalizada_4;
-int temp2domingo_dosagem_personalizada_4;
-int temp2hora_inicial_dosagem_personalizada_5;
-int temp2minuto_inicial_dosagem_personalizada_5;
-int temp2hora_final_dosagem_personalizada_5;
-int temp2minuto_final_dosagem_personalizada_5;
-int temp2segunda_dosagem_personalizada_5;
-int temp2terca_dosagem_personalizada_5;
-int temp2quarta_dosagem_personalizada_5;
-int temp2quinta_dosagem_personalizada_5;
-int temp2sexta_dosagem_personalizada_5;
-int temp2sabado_dosagem_personalizada_5;
-int temp2domingo_dosagem_personalizada_5;
-int temp2hora_inicial_dosagem_personalizada_6;
-int temp2minuto_inicial_dosagem_personalizada_6;
-int temp2hora_final_dosagem_personalizada_6;
-int temp2minuto_final_dosagem_personalizada_6;
-int temp2segunda_dosagem_personalizada_6;
-int temp2terca_dosagem_personalizada_6;
-int temp2quarta_dosagem_personalizada_6;
-int temp2quinta_dosagem_personalizada_6;
-int temp2sexta_dosagem_personalizada_6;
-int temp2sabado_dosagem_personalizada_6;
-int temp2domingo_dosagem_personalizada_6;
-int quantidade_dose_dosadora_4_personalizada_temp2;
-int quantidade_dose_dosadora_5_personalizada_temp2;
-int quantidade_dose_dosadora_6_personalizada_temp2;
+byte temp2hora_inicial_dosagem_personalizada_4;
+byte temp2minuto_inicial_dosagem_personalizada_4;
+byte temp2hora_final_dosagem_personalizada_4;
+byte temp2minuto_final_dosagem_personalizada_4;
+byte temp2segunda_dosagem_personalizada_4;
+byte temp2terca_dosagem_personalizada_4;
+byte temp2quarta_dosagem_personalizada_4;
+byte temp2quinta_dosagem_personalizada_4;
+byte temp2sexta_dosagem_personalizada_4;
+byte temp2sabado_dosagem_personalizada_4;
+byte temp2domingo_dosagem_personalizada_4;
+byte temp2hora_inicial_dosagem_personalizada_5;
+byte temp2minuto_inicial_dosagem_personalizada_5;
+byte temp2hora_final_dosagem_personalizada_5;
+byte temp2minuto_final_dosagem_personalizada_5;
+byte temp2segunda_dosagem_personalizada_5;
+byte temp2terca_dosagem_personalizada_5;
+byte temp2quarta_dosagem_personalizada_5;
+byte temp2quinta_dosagem_personalizada_5;
+byte temp2sexta_dosagem_personalizada_5;
+byte temp2sabado_dosagem_personalizada_5;
+byte temp2domingo_dosagem_personalizada_5;
+byte temp2hora_inicial_dosagem_personalizada_6;
+byte temp2minuto_inicial_dosagem_personalizada_6;
+byte temp2hora_final_dosagem_personalizada_6;
+byte temp2minuto_final_dosagem_personalizada_6;
+byte temp2segunda_dosagem_personalizada_6;
+byte temp2terca_dosagem_personalizada_6;
+byte temp2quarta_dosagem_personalizada_6;
+byte temp2quinta_dosagem_personalizada_6;
+byte temp2sexta_dosagem_personalizada_6;
+byte temp2sabado_dosagem_personalizada_6;
+byte temp2domingo_dosagem_personalizada_6;
+byte quantidade_dose_dosadora_4_personalizada_temp2;
+byte quantidade_dose_dosadora_5_personalizada_temp2;
+byte quantidade_dose_dosadora_6_personalizada_temp2;
 //*****************************************************************************************
 //************************** Variáveis dos timers *****************************************
 //*****************************************************************************************
@@ -666,60 +675,66 @@ byte temporizador_status = 0x0; // 1 = true e 0 = false
 //bit 3 = temporizador 3
 //bit 4 = temporizador 4
 //bit 5 = temporizador 5
-int temporizador_1_ativado = 0;
-int temporizador_2_ativado = 0;
-int temporizador_3_ativado = 0;
-int temporizador_4_ativado= 0;
-int temporizador_5_ativado= 0;
-int on1_minuto = 0;
-int on1_hora = 0;
-int on2_minuto = 0;
-int on2_hora = 0;
-int on3_minuto = 0;
-int on3_hora = 0;
-int on4_minuto = 0;
-int on4_hora = 0;
-int on5_minuto = 0;
-int on5_hora = 0;
-int off1_minuto = 0;
-int off1_hora = 0;
-int off2_minuto = 0;
-int off2_hora = 0;
-int off3_minuto = 0;
-int off3_hora = 0;
-int off4_minuto = 0;
-int off4_hora = 0;
-int off5_minuto = 0;
-int off5_hora= 0;
+byte temporizador_modificado = 0x0;
+//bit 1 = temporizador 1
+//bit 2 = temporizador 2
+//bit 3 = temporizador 3
+//bit 4 = temporizador 4
+//bit 5 = temporizador 5
+byte temporizador_1_ativado = 0;
+byte temporizador_2_ativado = 0;
+byte temporizador_3_ativado = 0;
+byte temporizador_4_ativado= 0;
+byte temporizador_5_ativado= 0;
+byte on1_minuto = 0;
+byte on1_hora = 0;
+byte on2_minuto = 0;
+byte on2_hora = 0;
+byte on3_minuto = 0;
+byte on3_hora = 0;
+byte on4_minuto = 0;
+byte on4_hora = 0;
+byte on5_minuto = 0;
+byte on5_hora = 0;
+byte off1_minuto = 0;
+byte off1_hora = 0;
+byte off2_minuto = 0;
+byte off2_hora = 0;
+byte off3_minuto = 0;
+byte off3_hora = 0;
+byte off4_minuto = 0;
+byte off4_hora = 0;
+byte off5_minuto = 0;
+byte off5_hora= 0;
 
 //*****************************************************************************************
 //************************** Variáveis temporárias dos timers *****************************
 //*****************************************************************************************
-int on1_minuto_temp2;
-int on1_hora_temp2;
-int on2_minuto_temp2;
-int on2_hora_temp2;
-int on3_minuto_temp2;
-int on3_hora_temp2;
-int on4_minuto_temp2;
-int on4_hora_temp2;
-int on5_minuto_temp2;
-int on5_hora_temp2;
-int off1_minuto_temp2;
-int off1_hora_temp2;
-int off2_minuto_temp2;
-int off2_hora_temp2;
-int off3_minuto_temp2;
-int off3_hora_temp2;
-int off4_minuto_temp2;
-int off4_hora_temp2;
-int off5_minuto_temp2;
-int off5_hora_temp2;
-int temporizador_1_ativado_temp2;
-int temporizador_2_ativado_temp2;
-int temporizador_3_ativado_temp2;
-int temporizador_4_ativado_temp2;
-int temporizador_5_ativado_temp2;
+byte on1_minuto_temp2;
+byte on1_hora_temp2;
+byte on2_minuto_temp2;
+byte on2_hora_temp2;
+byte on3_minuto_temp2;
+byte on3_hora_temp2;
+byte on4_minuto_temp2;
+byte on4_hora_temp2;
+byte on5_minuto_temp2;
+byte on5_hora_temp2;
+byte off1_minuto_temp2;
+byte off1_hora_temp2;
+byte off2_minuto_temp2;
+byte off2_hora_temp2;
+byte off3_minuto_temp2;
+byte off3_hora_temp2;
+byte off4_minuto_temp2;
+byte off4_hora_temp2;
+byte off5_minuto_temp2;
+byte off5_hora_temp2;
+byte temporizador_1_ativado_temp2;
+byte temporizador_2_ativado_temp2;
+byte temporizador_3_ativado_temp2;
+byte temporizador_4_ativado_temp2;
+byte temporizador_5_ativado_temp2;
 
 //*****************************************************************************************
 //************************** Variáveis do PCF8575 *****************************************
@@ -732,15 +747,43 @@ int temporizador_5_ativado_temp2;
 //*****************************************************************************************
 //************************** Comunicação RF ***********************************************
 //*****************************************************************************************
-int consumo = 0;
+byte consumo = 0;
 /*boolean RFM12B = false; // Altere para "false" caso não tenha um RFM12B
  #define myNodeID 30          // ID do emissor (intervalo 0-30) 
  #define network     210      // Grupo (pode ser no intervalo de 1-250).
  #define freq RF12_915MHZ     // Frequência de RF12B pode ser RF12_433MHZ, RF12_868MHZ ou RF12_915MHZ. Corresponde a frequência do módulo
  typedef struct { int power1, power2, power3, battery; } PayloadTX;      // Cria uma estrutura
  PayloadTX emontx;  
- const int emonTx_NodeID = 10;            // ID do receptor*/
+ const byte emonTx_NodeID = 10;            // ID do receptor*/
 
+//*****************************************************************************************
+//************************** Dispositivos SPI *********************************************
+//*****************************************************************************************
+const byte SD_CARD = 0; 
+const byte ETHER_CARD = 1;
+const byte RFM = 2;
+const byte ChipSelect_SD = 4;            
+const byte SelectSlave_ETH = 53;
+const int ChipSelect_RFM = A15;
+
+//*****************************************************************************************
+//************************* Variáveis da temperatura ambiente *****************************
+//*****************************************************************************************
+float tempA = 0; // Temperatura ambiente
+float temperatura_ambiente_temp = 0; // Temperatura temporária
+
+//*****************************************************************************************
+//************************* Variáveis das bombas de circulação ****************************
+//*****************************************************************************************
+byte modo_selecionado = 1; 
+byte Pump1PWM_temp = 0;    
+byte Pump2PWM_temp = 0;
+int periodo = 10000;
+int duracao = 5000; // Duração do ciclo em milisegundos para o modo 3.
+long millis_antes_1 = 0;
+byte conta = 0;
+byte Pump1PWM = 0;    
+byte Pump2PWM = 0;
 //*****************************************************************************************
 //************************** Variáveis de controle da potência dos leds *******************
 //*****************************************************************************************
@@ -756,7 +799,7 @@ byte bled[96] = {                       // Potência de saída dos leds azuis 25
   111, 102, 93, 84, 75, 66, 57, 48,       // 16 e 18
   39, 30, 21, 12, 0, 0, 0, 0,         // 18 a 20
   0, 0, 0, 0, 0, 0, 0, 0,         // 20 e 22
-  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 24
+  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 0
 };  
 
 byte wled[96] = {                         //Potência de saída dos leds brancos 255 = 100% da potência
@@ -771,7 +814,7 @@ byte wled[96] = {                         //Potência de saída dos leds brancos
   111, 102, 93, 84, 75, 66, 57, 48,       // 16 e 18
   39, 30, 21, 12, 0, 0, 0, 0,         // 18 a 20
   0, 0, 0, 0, 0, 0, 0, 0,         // 20 e 22
-  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 24
+  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 0
 };
 byte rbled[96] = {                         //Potência de saída dos leds brancos 255 = 100% da potência
   0, 0, 0, 0, 0, 0, 0, 0,       // 0 e 2
@@ -785,7 +828,7 @@ byte rbled[96] = {                         //Potência de saída dos leds branco
   111, 102, 93, 84, 75, 66, 57, 48,       // 16 e 18
   39, 30, 21, 12, 0, 0, 0, 0,         // 18 a 20
   0, 0, 0, 0, 0, 0, 0, 0,         // 20 e 22
-  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 24
+  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 0
 };
 byte rled[96] = {                         //Potência de saída dos leds brancos 255 = 100% da potência
   0, 0, 0, 0, 0, 0, 0, 0,       // 0 e 2
@@ -799,7 +842,7 @@ byte rled[96] = {                         //Potência de saída dos leds brancos
   111, 102, 93, 84, 75, 66, 57, 48,       // 16 e 18
   39, 30, 21, 12, 0, 0, 0, 0,         // 18 a 20
   0, 0, 0, 0, 0, 0, 0, 0,         // 20 e 22
-  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 24
+  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 000
 };
 byte uvled[96] = {                         //Potência de saída dos leds brancos 255 = 100% da potência
   0, 0, 0, 0, 0, 0, 0, 0,       // 0 e 2
@@ -813,8 +856,6 @@ byte uvled[96] = {                         //Potência de saída dos leds branco
   111, 102, 93, 84, 75, 66, 57, 48,       // 16 e 18
   39, 30, 21, 12, 0, 0, 0, 0,         // 18 a 20
   0, 0, 0, 0, 0, 0, 0, 0,         // 20 e 22
-  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 24
+  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 0
 };
 byte tled[96];
-
-

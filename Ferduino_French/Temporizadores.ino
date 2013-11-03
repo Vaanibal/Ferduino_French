@@ -1,7 +1,7 @@
 void check_temporizadores()
 {
 
-  if (temporizador_1_ativado == 1) 
+  if ((temporizador_1_ativado == 1) && (bitRead(temporizador_modificado,1) == false))
   {  
    if(NumMins(off1_hora,off1_minuto) > NumMins(on1_hora,on1_minuto))
    {
@@ -40,8 +40,9 @@ void check_temporizadores()
   {
     digitalWrite(temporizador1, LOW);
     bitWrite(temporizador_status,1,0);
+    bitWrite(temporizador_modificado,1,0);
   }
-  if (temporizador_2_ativado == 1) 
+  if ((temporizador_2_ativado == 1)  && (bitRead(temporizador_modificado,2) == false))
   {
    if(NumMins(off2_hora,off2_minuto) > NumMins(on2_hora,on2_minuto))
    {
@@ -80,8 +81,9 @@ void check_temporizadores()
   {
     digitalWrite(temporizador2, LOW);
     bitWrite(temporizador_status,2,0);
+    bitWrite(temporizador_modificado,2,0);
   }  
-  if (temporizador_3_ativado == 1) 
+  if ((temporizador_3_ativado == 1) && (bitRead(temporizador_modificado,3) == false)) 
   {  
    if(NumMins(off3_hora,off3_minuto) > NumMins(on3_hora,on3_minuto))
    {
@@ -120,8 +122,9 @@ void check_temporizadores()
   {
     digitalWrite(temporizador3, LOW);
     bitWrite(temporizador_status,3,0);
+    bitWrite(temporizador_modificado,3,0);  
   } 
-  if (temporizador_4_ativado == 1) 
+  if ((temporizador_4_ativado == 1) && (bitRead(temporizador_modificado,4) == false)) 
   {  
    if(NumMins(off4_hora,off4_minuto) > NumMins(on4_hora,on4_minuto))
    {
@@ -160,8 +163,9 @@ void check_temporizadores()
   {
     digitalWrite(temporizador4, LOW);
     bitWrite(temporizador_status,4,0);
+    bitWrite(temporizador_modificado,4,0);   
   }
-  if (temporizador_5_ativado == 1) 
+  if ((temporizador_5_ativado == 1) && (bitRead(temporizador_modificado,5) == false))
   {  
    if(NumMins(off5_hora,off5_minuto) > NumMins(on5_hora,on5_minuto))
    {
@@ -200,6 +204,7 @@ void check_temporizadores()
   {
     digitalWrite(temporizador5, LOW);
     bitWrite(temporizador_status,5,0);
+     bitWrite(temporizador_modificado,5,0);
   }  
 }
 

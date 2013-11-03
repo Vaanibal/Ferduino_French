@@ -8,7 +8,7 @@ void check_dosagem_personalizada_1()
   time9 = t.min;
 
 
-  digitalWrite (4, LOW);
+  
 
   if (oldminuto9!=time9)
   {  
@@ -151,7 +151,7 @@ void check_dosagem_personalizada_1()
       }
     }
   }
-  digitalWrite (4, HIGH);
+  
 }
 
 void check_dosagem_personalizada_2()
@@ -164,7 +164,7 @@ void check_dosagem_personalizada_2()
   time10 = t.min;
 
 
-  digitalWrite (4, LOW);
+  
 
   if (oldminuto10!=time10)
   {  
@@ -306,7 +306,7 @@ void check_dosagem_personalizada_2()
       }
     }
   }
-  digitalWrite (4, HIGH);
+  
 }
 
 void check_dosagem_personalizada_3()
@@ -319,7 +319,7 @@ void check_dosagem_personalizada_3()
   time11 = t.min;
 
 
-  digitalWrite (4, LOW);
+  
 
   if (oldminuto11!=time11)
   {  
@@ -460,7 +460,7 @@ void check_dosagem_personalizada_3()
       }
     }
   }
-  digitalWrite (4, HIGH);
+  
 }
 
 void check_dosagem_personalizada_4()
@@ -473,7 +473,7 @@ void check_dosagem_personalizada_4()
   time15 = t.min;
 
 
-  digitalWrite (4, LOW);
+  
 
   if (oldminuto15!=time15)
   {  
@@ -616,7 +616,7 @@ void check_dosagem_personalizada_4()
       }
     }
   }
-  digitalWrite (4, HIGH);
+  
 }
 
 void check_dosagem_personalizada_5()
@@ -629,7 +629,7 @@ void check_dosagem_personalizada_5()
   time16 = t.min;
 
 
-  digitalWrite (4, LOW);
+  
 
   if (oldminuto16!=time16)
   {  
@@ -771,7 +771,7 @@ void check_dosagem_personalizada_5()
       }
     }
   }
-  digitalWrite (4, HIGH);
+  
 }
 
 void check_dosagem_personalizada_6()
@@ -784,7 +784,7 @@ void check_dosagem_personalizada_6()
   time17 = t.min;
 
 
-  digitalWrite (4, LOW);
+  
 
   if (oldminuto17!=time17)
   {  
@@ -925,7 +925,7 @@ void check_dosagem_personalizada_6()
       }
     }
   }
-  digitalWrite (4, HIGH);
+  
 }
 
 

@@ -46,7 +46,7 @@ void mainScreen(boolean refreshAll=false)
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[182])));
     myGLCD.print(buffer, 10, 213); // tabela_textos[182] = "FASE LUNAR:"
   }
-
+   
   if ( refreshAll == true)                                  //Desenha elementos fixos
   {
     myGLCD.setColor(196, 136, 17);
@@ -128,35 +128,87 @@ void mainScreen(boolean refreshAll=false)
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[195])));
     myGLCD.print(buffer, 212, 182); // tabela_textos[195] = "TPA:" // Troca de Água Parcial
     
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[89])));
-    myGLCD.print(buffer, 212, 195); // tabela_textos[89] = "CONSUMO:"    
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[226])));
+    myGLCD.print(buffer, 212, 195); // tabela_textos[226] = "T. AMBIENTE:"    
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[31])));
-    myGLCD.print(buffer, 12, 144); // tabela_textos[31] = "TIMER 1:"
+    if(temporizador_1_ativado == 1)
+    {
+      myGLCD.setColor(0, 130, 255); 
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[31])));
+      myGLCD.print(buffer, 12, 144); // tabela_textos[31] = "TIMER 1:"
+    }
+    else
+    {
+      myGLCD.setColor(255, 255, 255);
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[31])));
+      myGLCD.print(buffer, 12, 144); // tabela_textos[31] = "TIMER 1:"      
+    }
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[77])));
-    myGLCD.print(buffer, 12, 156); // tabela_textos[77] = "TIMER 2:"
+    if(temporizador_2_ativado == 1)
+    {
+      myGLCD.setColor(0, 130, 255); 
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[77])));
+      myGLCD.print(buffer, 12, 156); // tabela_textos[77] = "TIMER 2:"
+    }
+    else
+    {
+      myGLCD.setColor(255, 255, 255); 
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[77])));
+      myGLCD.print(buffer, 12, 156); // tabela_textos[77] = "TIMER 2:"
+    }      
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[78])));
-    myGLCD.print(buffer, 12, 168); // tabela_textos[78] = "TIMER 3:"
+    if(temporizador_3_ativado == 1)
+    {
+     myGLCD.setColor(0, 130, 255); 
+     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[78])));
+     myGLCD.print(buffer, 12, 168); // tabela_textos[78] = "TIMER 3:"
+    }
+    else
+    {
+     myGLCD.setColor(255, 255, 255); 
+     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[78])));
+     myGLCD.print(buffer, 12, 168); // tabela_textos[78] = "TIMER 3:"
+    }     
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[79])));
-    myGLCD.print(buffer, 12, 180); // tabela_textos[79] = "TIMER 4:"
+    if(temporizador_4_ativado == 1)
+    {
+     myGLCD.setColor(0, 130, 255); 
+     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[79])));
+     myGLCD.print(buffer, 12, 180); // tabela_textos[79] = "TIMER 4:"
+    }
+    else
+    {
+     myGLCD.setColor(255, 255, 255); 
+     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[79])));
+     myGLCD.print(buffer, 12, 180); // tabela_textos[79] = "TIMER 4:"
+    }    
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[80])));
-    myGLCD.print(buffer, 12, 192); // tabela_textos[80] = "TIMER 5:"
+    if(temporizador_5_ativado == 1)
+    {
+     myGLCD.setColor(0, 130, 255);
+     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[80])));
+     myGLCD.print(buffer, 12, 192); // tabela_textos[80] = "TIMER 5:"
+    }
+    else
+    {
+     myGLCD.setColor(255, 255, 255);
+     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[80])));
+     myGLCD.print(buffer, 12, 192); // tabela_textos[80] = "TIMER 5:"
+    }     
 
     myGLCD.setColor(0, 255, 0);
 
-    myGLCD.drawCircle(359, 11, 2);                  // Unidade t. dissipador
-    myGLCD.print("C", 362, 14);
+    myGLCD.drawCircle(369, 11, 2);                  // Unidade t. dissipador
+    myGLCD.print("C", 372, 14);
 
-    myGLCD.drawCircle(357, 25, 2);                  // Unidade t. água
-    myGLCD.print("C", 360, 28);                     // Unidade t. água
+    myGLCD.drawCircle(367, 25, 2);                  // Unidade t. água
+    myGLCD.print("C", 370, 28);                     // Unidade t. água
 
     myGLCD.print("G/L", 332, 70);                   // Unidade densidade
     myGLCD.print("MV", 280, 84);                    // Unidade ORP
-    myGLCD.print("KWH", 310, 195);                    // Unidade Consumo de energia
+
+    myGLCD.drawCircle(369, 192, 2);                  // Unidade t. ambiente
+    myGLCD.print("C", 370, 195);                    // Unidade t. ambiente
 
 
     myGLCD.setColor(161, 127, 73);                  
@@ -164,6 +216,7 @@ void mainScreen(boolean refreshAll=false)
     myGLCD.drawRect(206, 5, 392, 208);
   } // Fim do refreshAll
 
+ 
   if ((whiteLed != wled_out) || refreshAll)  // Atualiza gráfico led branco    
   {
     whiteLed = wled_out;
@@ -185,7 +238,7 @@ void mainScreen(boolean refreshAll=false)
     myGLCD.print("%", 186, 144); 
 
     myGLCD.setColor(0, 0, 0);
-    myGLCD.fillRect(59, offset, 79, 28);      // Apaga barra anterior
+    myGLCD.fillRect(59, offset -1, 79, 27);      // Apaga barra anterior
   }
   if ((blueLed != bled_out) || refreshAll)       // Atualiza gráfico led azul
   {
@@ -208,7 +261,7 @@ void mainScreen(boolean refreshAll=false)
 
     myGLCD.setColor(0, 0, 0);
 
-    myGLCD.fillRect(85, offset, 105, 28);       // Apaga barra anterior
+    myGLCD.fillRect(85, offset - 1, 105, 27);       // Apaga barra anterior
   }
   if ((azulroyalLed != rbled_out) || refreshAll)      // Atualiza gráfico led azul royal
   {
@@ -231,7 +284,7 @@ void mainScreen(boolean refreshAll=false)
 
     myGLCD.setColor(0, 0, 0);
 
-    myGLCD.fillRect(111, offset, 131, 28);      // Apaga barra anterior
+    myGLCD.fillRect(111, offset - 1, 131, 27);      // Apaga barra anterior
   }
   if ((vermelhoLed != rled_out) || refreshAll)    // Atualiza gráfico led  vermelho 
   {
@@ -254,7 +307,7 @@ void mainScreen(boolean refreshAll=false)
 
     myGLCD.setColor(0, 0, 0);
 
-    myGLCD.fillRect(137, offset, 157, 28);      // Apaga barra anterior
+    myGLCD.fillRect(137, offset - 1, 157, 27);      // Apaga barra anterior
   }
   if ((violetaLed != uvled_out) || refreshAll)      // Atualiza gráfico led violeta
   {
@@ -274,10 +327,9 @@ void mainScreen(boolean refreshAll=false)
     myGLCD.fillRect(163, offset, 183, 137);
     myGLCD.print(String(ledLevel), 160, 192); 
     myGLCD.print("%", 186, 192); 
-
+    
     myGLCD.setColor(0, 0, 0);
-
-    myGLCD.fillRect(163, offset, 183, 28);       // Apaga barra anterior
+    myGLCD.fillRect(163, offset - 1, 183, 27);       // Apaga barra anterior
   }  
 
   myGLCD.setColor(0, 0, 0);                      
@@ -295,7 +347,7 @@ void mainScreen(boolean refreshAll=false)
   myGLCD.fillRect(289, 154, 350, 166);              // Apagar noticia de reposicao ligado/desligado
   myGLCD.fillRect(266, 168, 390, 180);              // Apagar noticia de nivel normal/anormal
   myGLCD.fillRect(250, 182, 365, 193);              // Apagar noticia de TPA ligado/desligado
-  myGLCD.fillRect(280, 195, 309, 207);              // Apaga consumo de energia
+  myGLCD.fillRect(312, 195, 360, 207);              // Apaga consumo de energia
 
   myGLCD.fillRect(80, 144, 110, 156);              // Apagar noticia de Timers 1 ligado/desligado
   myGLCD.fillRect(80, 156, 110, 168);              // Apagar noticia de Timers 2 ligado/desligado
@@ -303,20 +355,21 @@ void mainScreen(boolean refreshAll=false)
   myGLCD.fillRect(80, 180, 110, 192);              // Apagar noticia de Timers 4 ligado/desligado
   myGLCD.fillRect(80, 192, 110, 204);              // Apagar noticia de Timers 5 ligado/desligado
 
+
   myGLCD.setColor(0, 255, 0);  
-  myGLCD.printNumF(tempH, 1, 316, 14);   // Temperatura dissipador
-  myGLCD.printNumF(tempC, 1, 302, 28);   // Temperatura da agua
+  myGLCD.printNumF(tempH, 2, 316, 14);   // Temperatura dissipador
+  myGLCD.printNumF(tempC, 2, 302, 28);   // Temperatura da agua
   myGLCD.printNumF(PHA, 2, 327, 42);     // PH aqua
   myGLCD.printNumF(PHR, 2, 316, 56);    // PH reator
   myGLCD.printNumI(DEN, 293, 70);        // Densidade
   myGLCD.printNumI(ORP, 245, 84);       // ORP 
-  myGLCD.printNumI(consumo, 280, 195);  // Consumo de energia
+  myGLCD.printNumF(tempA, 2, 312, 195);  // Temperatura ambiente
 
   myGLCD.setColor(255, 0, 0);
 
   if (bitRead(status_parametros,2)==true) 
   {                               
-    myGLCD.printNumF( tempC, 1, 302, 28);     // Temperatura em vermelho
+    myGLCD.printNumF( tempC, 2, 302, 28);     // Temperatura em vermelho
   }  
   if (bitRead(status_parametros,3) == true) 
   {                               
@@ -374,7 +427,7 @@ void mainScreen(boolean refreshAll=false)
     myGLCD.setColor(0, 255, 0);
     myGLCD.print("OFF", 270, 140);          // ozonio desligado
   }
-  if (ato==true) 
+  if (bitRead(Status,1) == true) 
   {             
     myGLCD.setColor(0, 130, 255);
     myGLCD.print("ON", 294, 154);           // Reposição ligada
@@ -392,7 +445,7 @@ void mainScreen(boolean refreshAll=false)
   }
   else 
   {             
-    myGLCD.setColor(255, 0, 0);
+    myGLCD.setColor(0, 255, 0);
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[197])));
     myGLCD.print(buffer, 265, 168);          // Nível nornal // tabela_textos[197] = "NORMAL"
   } 
@@ -463,6 +516,18 @@ void mainScreen(boolean refreshAll=false)
     myGLCD.setColor(0, 255, 0);
     myGLCD.print("OFF", 80, 192);          // Timer 5 desligado
   }  
+  if(temperatura_alta == true)
+  {
+   myGLCD.setColor(255, 0, 0);
+   strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[236])));// "TEMPERATURA ALTA!"
+   myGLCD.print(buffer, 58, 90);          // Alerta de temperatura alta para os LEDS.
+  }
+  if(temperatura_baixou == true) 
+    {
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[237]))); // "TEMP. BAIXOU!"
+    myGLCD.setColor(0, 255, 0);
+    myGLCD.print(buffer, 58, 90);          // Alerta de que a temperatura esteve alta para os LEDS.
+  }
 }
 
 
