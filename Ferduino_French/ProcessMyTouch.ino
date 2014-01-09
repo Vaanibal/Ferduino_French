@@ -5,7 +5,7 @@ void processMyTouch()
    int x, y;                  // Coordenadas do touch screen
    x=myTouch.getX();
    y=myTouch.getY();
-   
+
   if(temperatura_alta == false) // Limpa mensagem de que a temperatura dos leds esteve alta.
   {
     temperatura_baixou = false;
@@ -575,14 +575,34 @@ void processMyTouch()
             }
             myGLCD.setColor(0, 0, 0);
             myGLCD.fillRect((oldLCT*26)+5, 21, (oldLCT*26)+29, 45);
+
             setFont(SMALL, 0, 255, 255, 0, 0, 0);
+
+            if(oldLCT == 11)
+            {
+            myGLCD.printNumI((oldLCT*2), (oldLCT*26)+10, 22);
+            myGLCD.print("0", (oldLCT*26)+14, 33);            
+            }
+            else
+            {
             myGLCD.printNumI((oldLCT*2), (oldLCT*26)+10, 22);
             myGLCD.printNumI(((oldLCT*2)+2), (oldLCT*26)+10, 33);
+            }
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRect((LedChangTime*26)+5, 21, (LedChangTime*26)+29, 45);
+  
             setFont(SMALL, 255, 255, 255, 255, 0, 0);
+
+            if(LedChangTime == 11)
+            {
             myGLCD.printNumI((LedChangTime*2), (LedChangTime*26)+10, 22);
-            myGLCD.printNumI(((LedChangTime*2)+2), (LedChangTime*26)+10, 33);
+            myGLCD.print("0", (LedChangTime*26)+14, 33);
+            }
+            else
+            {
+            myGLCD.printNumI((LedChangTime*2), (LedChangTime*26)+10, 22);
+            myGLCD.printNumI(((LedChangTime*2)+2), (LedChangTime*26)+10, 33);              
+            }
             myGLCD.setColor(100, 100, 100);
             myGLCD.drawLine(4, 45, 316,45);
 

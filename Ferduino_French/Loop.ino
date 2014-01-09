@@ -20,12 +20,12 @@ void loop()
     selecionar_SPI(ETHER_CARD); // Seleciona disposito SPI que será utilizado.
     ether.packetLoop(ether.packetReceive()); // Envia e recebe os dados da internet.
   }
+  
   if (myTouch.dataAvailable())  
   { 
     processMyTouch();  // Verifica se o LCD está sendo tocado e faz o processamento.
-
   }
-
+  
   if(Stamps == true)
   {
     if((millis() - millis_antes) >= 120000) // Executa as funções a cada 2 minutos.

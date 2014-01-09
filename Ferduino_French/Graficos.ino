@@ -15,13 +15,13 @@ void tempgScreen()//------------------------------------------------------------
   int f = 30;
  
   strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[25])));
-  printHeader(buffer); // tabela_textos[25] = "GRAFICO DE TEMPERATURA"
+  printHeader(buffer); // tabela_textos[25] = "GRAFICO DE TEMPERATURA DA AGUA"
 
   setFont(SMALL, 255, 255, 255, 0, 0, 0);
 
 for(float i = 27.5; i > 22.0; i -= 0.5)
 {
-  myGLCD.printNumF(i, 1, 5, f);
+  myGLCD.printNumF(i, 1, 5, 3 + f);
   f += 15; 
 }
 
@@ -102,7 +102,7 @@ for(int i = 22; i > 0; i -= 2)
 
   setFont(SMALL, 255, 255, 0, 0, 0, 0);
   
-  int d = 40 + (NumMins(t.hour,t.min)/6);
+  int d = 41 + (NumMins(t.hour,t.min)/6);
   
   myGLCD.drawLine(d, 30, d, 190); // Linha de marcação do horário.
   myGLCD.print(rtc.getTimeStr(FORMAT_SHORT), d + 2, 75, 270);
@@ -182,7 +182,7 @@ void orpScreen()//------------------------------------------------------------te
   
   for(int i = 480; i > 160; i -= 30)
 {
-  myGLCD.printNumI(i, 5, f);
+  myGLCD.printNumI(i, 10, 3 + f);
   f += 15; 
 }
 
@@ -193,7 +193,7 @@ for(int i = 22; i > 0; i -= 2)
   f -= 20;
 }
   myGLCD.print("0", 275, 193);    
-  myGLCD.print("MV", 20, 18);
+  myGLCD.print("MV", 18, 18);
   myGLCD.print("H", 290, 193);
   myGLCD.drawLine(40, 190, 290, 190);  //eixo x
   myGLCD.drawLine(40, 30, 40, 190); //eixo y
@@ -260,7 +260,7 @@ for(int i = 22; i > 0; i -= 2)
  
   setFont(SMALL, 255, 255, 0, 0, 0, 0);
   
-  int d = 40 + (NumMins(t.hour,t.min)/6);
+  int d = 41 + (NumMins(t.hour,t.min)/6);
   
   myGLCD.drawLine(d, 30, d, 190); // Linha de marcação do horário.
   myGLCD.print(rtc.getTimeStr(FORMAT_SHORT), d + 2, 75, 270);
@@ -341,7 +341,7 @@ void PHAScreen()//-------------------------------ph do aqua---------------------
 
   for(float i = 9; i > 6.9; i -= 0.2)
 {
-  myGLCD.printNumF(i, 1, 5, f);
+  myGLCD.printNumF(i, 1, 10, 3 + f);
   f += 15; 
 }
 
@@ -352,7 +352,7 @@ for(int i = 22; i > 0; i -= 2)
   f -= 20;
 }
   myGLCD.print("0", 275, 193);   
-  myGLCD.print("PH", 20, 18);
+  myGLCD.print("PH", 17, 18);
   myGLCD.print("H", 290, 193);
 
   myGLCD.drawLine(40, 30, 40, 190); //eixo y
@@ -419,7 +419,7 @@ for(int i = 22; i > 0; i -= 2)
 
   setFont(SMALL, 255, 255, 0, 0, 0, 0);
   
-  int d = 40 + (NumMins(t.hour,t.min)/6);
+  int d = 41 + (NumMins(t.hour,t.min)/6);
   
   myGLCD.drawLine(d, 30, d, 190); // Linha de marcação do horário.
   myGLCD.print(rtc.getTimeStr(FORMAT_SHORT), d + 2, 75, 270);
@@ -500,7 +500,7 @@ void PHRScreen()//----------------PH do reator ---------------------------------
 
   for(float i = 7.4; i > 5.3; i -= 0.2)
 {
-  myGLCD.printNumF(i, 1, 5, f);
+  myGLCD.printNumF(i, 1, 10, 3 + f);
   f += 15; 
 }
 
@@ -511,7 +511,7 @@ for(int i = 22; i > 0; i -= 2)
   f -= 20;
 }
   myGLCD.print("0", 275, 193);   
-  myGLCD.print("PH", 20, 18);
+  myGLCD.print("PH", 17, 18);
   myGLCD.print("H", 290, 193);
 
   myGLCD.drawLine(40, 30, 40, 190); //eixo y
@@ -579,7 +579,7 @@ for(int i = 22; i > 0; i -= 2)
 
   setFont(SMALL, 255, 255, 0, 0, 0, 0);
   
-  int d = 40 + (NumMins(t.hour,t.min)/6);
+  int d = 41 + (NumMins(t.hour,t.min)/6);
   
   myGLCD.drawLine(d, 30, d, 190); // Linha de marcação do horário.
   myGLCD.print(rtc.getTimeStr(FORMAT_SHORT), d + 2, 75, 270);
@@ -658,7 +658,7 @@ void densidadeScreen()//----------------grafico de densidade -------------------
 
   for(int i = 1030; i > 1008; i -= 2)
 {
-  myGLCD.printNumI(i, 10, f);
+  myGLCD.printNumI(i, 12, 3 + f);
   f += 15; 
 }
 
@@ -670,7 +670,7 @@ for(int i = 22; i > 0; i -= 2)
 }
 
   myGLCD.print("0", 285, 193);   
-  myGLCD.print("DENS.", 10, 18);
+  myGLCD.print("DENS.", 12, 18);
   myGLCD.print("H", 300, 193);
 
   myGLCD.drawLine(50, 30, 50, 190); //eixo y
@@ -739,7 +739,7 @@ for(int i = 22; i > 0; i -= 2)
 
   setFont(SMALL, 255, 255, 0, 0, 0, 0);
   
-  int d = 50 + (NumMins(t.hour,t.min)/6);
+  int d = 51 + (NumMins(t.hour,t.min)/6);
   
   myGLCD.drawLine(d, 30, d, 190); // Linha de marcação do horário.
   myGLCD.print(rtc.getTimeStr(FORMAT_SHORT), d + 2, 75, 270);

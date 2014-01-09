@@ -164,51 +164,51 @@ void testScreen(boolean refreshAll=false)//-------------------------------- Test
   {
     if(teste_iniciado == true)
     {
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[19])));
-    printHeader(buffer); // tabela_textos[19] = "TESTAR VARIACAO DE LUMINOSIDADE"
-    printButton ("", stsT[0], stsT[1], stsT[2], stsT[3], true);   //start/stop
-    printButton ("-10s", tenM[0], tenM[1], tenM[2], tenM[3], true);     //-10s
-    printButton ("+10s", tenP[0], tenP[1], tenP[2], tenP[3], true);   //+10s
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[19])));
+      printHeader(buffer); // tabela_textos[19] = "TESTAR VARIACAO DE LUMINOSIDADE"
+      printButton ("", stsT[0], stsT[1], stsT[2], stsT[3], true);   //start/stop
+      printButton ("-10s", tenM[0], tenM[1], tenM[2], tenM[3], true);     //-10s
+      printButton ("+10s", tenP[0], tenP[1], tenP[2], tenP[3], true);   //+10s
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
-    myGLCD.print(buffer, stsT[0]+10, stsT[1]+15); // "INICIAR"
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+      myGLCD.print(buffer, stsT[0]+10, stsT[1]+15); // "INICIAR"
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[18])));
-    myGLCD.print(buffer, stsT[0]+25, stsT[1]+40); // "TESTE"
-    min_cnt=0;
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[18])));
+      myGLCD.print(buffer, stsT[0]+25, stsT[1]+40); // "TESTE"
+      min_cnt=0;
 
-    myGLCD.setColor(0, 0, 200);
-    myGLCD.fillRect(stsT[0]+5, stsT[1]+5, stsT[2]-5, stsT[3]-40);   //clear 'start'
-    setFont(LARGE, 255, 255, 255, 0, 0, 200);
+      myGLCD.setColor(0, 0, 200);
+      myGLCD.fillRect(stsT[0]+5, stsT[1]+5, stsT[2]-5, stsT[3]-40);   //clear 'start'
+      setFont(LARGE, 255, 255, 255, 0, 0, 200);
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[20])));
-    myGLCD.print(buffer, stsT[0]+25, stsT[1]+15); // "PARAR"
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[20])));
+      myGLCD.print(buffer, stsT[0]+25, stsT[1]+15); // "PARAR"
 
-    myGLCD.setColor(255, 0, 0);
-    myGLCD.fillRect (1, 15, 318, 37);
-    myGLCD.drawRoundRect (stsT[0], stsT[1], stsT[2], stsT[3]);       //red button during test
-    setFont(LARGE, 255, 255, 255, 255, 0, 0);
+      myGLCD.setColor(255, 0, 0);
+      myGLCD.fillRect (1, 15, 318, 37);
+      myGLCD.drawRoundRect (stsT[0], stsT[1], stsT[2], stsT[3]);       //red button during test
+      setFont(LARGE, 255, 255, 255, 255, 0, 0);
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[21])));
-    myGLCD.print(buffer, 15, 18); // "TESTE EM ANDAMENTO"
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[21])));
+      myGLCD.print(buffer, 15, 18); // "TESTE EM ANDAMENTO"
 
-    setFont(SMALL, 255, 255, 255, 0, 0, 0);
+      setFont(SMALL, 255, 255, 255, 0, 0, 0);
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[22])));
-    myGLCD.print(buffer, 33, 40); // "TEMPO:"
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[22])));
+      myGLCD.print(buffer, 33, 40); // "TEMPO:"
 
-    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[23])));
-    myGLCD.print(buffer, 30, 40); // "POTENCIA DE SAIDA (0-255):"
+      strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[23])));
+      myGLCD.print(buffer, 30, 40); // "POTENCIA DE SAIDA (0-255):"
     }
-    
+
     if (LEDtestTick == true)               //test LED and speed up time
     {
       if (millis() - previousMillis > 500)    //change time every 0.5s
       {
         previousMillis = millis();
-
+      
         min_cnt++;
-
+       
         if (min_cnt > 1439) 
         {
           min_cnt = 0;
@@ -5454,6 +5454,7 @@ void pre_definido(boolean refreshAll = false)
     myGLCD.fillRoundRect(1, 201, 399, 239);
   }
 }
+
 
 
 

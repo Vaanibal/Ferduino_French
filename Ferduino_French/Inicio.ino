@@ -56,15 +56,15 @@ void mainScreen(boolean refreshAll=false)
 
     myGLCD.setColor(192, 236, 255);
 
-    myGLCD.print("100", 24, 17);  
+    myGLCD.print("100", 24, 20);  
 
     for (int i = 0; i < 90; i += 10)
     {
-      myGLCD.printNumI(90-i, 32, 28 + offset);   // 90 até 10
+      myGLCD.printNumI(90-i, 32, 31 + offset);   // 90 até 10
       offset += 11;
     }
 
-    myGLCD.print("0", 40, 127);
+    myGLCD.print("0", 40, 130);
 
     myGLCD.setColor(255, 255, 255);
 

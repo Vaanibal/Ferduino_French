@@ -491,9 +491,9 @@ void check_dosagem_personalizada_4()
             {
               tempo_dosagem = map (((dose_dosadora_4_personalizada/quantidade_dose_dosadora_4_personalizada)*2), 0, fator_calib_dosadora_4, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora1, HIGH);
+              digitalWrite(dosadora4, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora1, LOW);
+              digitalWrite(dosadora4, LOW);
             }
           }
         }
@@ -510,9 +510,9 @@ void check_dosagem_personalizada_4()
             {
               tempo_dosagem = map (((dose_dosadora_4_personalizada/quantidade_dose_dosadora_4_personalizada)*2), 0, fator_calib_dosadora_4, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora1, HIGH);
+              digitalWrite(dosadora4, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora1, LOW);
+              digitalWrite(dosadora4, LOW);
             }
           }
         }
@@ -529,9 +529,9 @@ void check_dosagem_personalizada_4()
             {
               tempo_dosagem = map (((dose_dosadora_4_personalizada/quantidade_dose_dosadora_4_personalizada)*2), 0, fator_calib_dosadora_4, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora1, HIGH);
+              digitalWrite(dosadora4, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora1, LOW);
+              digitalWrite(dosadora4, LOW);
             }
           }
         }
@@ -548,9 +548,9 @@ void check_dosagem_personalizada_4()
             {
               tempo_dosagem = map (((dose_dosadora_4_personalizada/quantidade_dose_dosadora_4_personalizada)*2), 0, fator_calib_dosadora_4, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora1, HIGH);
+              digitalWrite(dosadora4, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora1, LOW);
+              digitalWrite(dosadora4, LOW);
             }
           }
         }
@@ -567,9 +567,9 @@ void check_dosagem_personalizada_4()
             {
               tempo_dosagem = map (((dose_dosadora_4_personalizada/quantidade_dose_dosadora_4_personalizada)*2), 0, fator_calib_dosadora_4, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora1, HIGH);
+              digitalWrite(dosadora4, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora1, LOW);
+              digitalWrite(dosadora4, LOW);
             }
           }
         }
@@ -586,9 +586,9 @@ void check_dosagem_personalizada_4()
             {
               tempo_dosagem = map (((dose_dosadora_4_personalizada/quantidade_dose_dosadora_4_personalizada)*2), 0, fator_calib_dosadora_4, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora1, HIGH);
+              digitalWrite(dosadora4, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora1, LOW);
+              digitalWrite(dosadora4, LOW);
             }
           }
         }
@@ -606,9 +606,9 @@ void check_dosagem_personalizada_4()
             {
               tempo_dosagem = map (((dose_dosadora_4_personalizada/quantidade_dose_dosadora_4_personalizada)*2), 0, fator_calib_dosadora_4, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora1, HIGH);
+              digitalWrite(dosadora4, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora1, LOW);
+              digitalWrite(dosadora4, LOW);
             }
           }
         }
@@ -646,9 +646,9 @@ void check_dosagem_personalizada_5()
             {
               tempo_dosagem = map (((dose_dosadora_5_personalizada/quantidade_dose_dosadora_5_personalizada)*2), 0, fator_calib_dosadora_5, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora2, HIGH);
+              digitalWrite(dosadora5, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora2, LOW);
+              digitalWrite(dosadora5, LOW);
             }
           }
         }
@@ -665,9 +665,9 @@ void check_dosagem_personalizada_5()
             {
               tempo_dosagem = map (((dose_dosadora_5_personalizada/quantidade_dose_dosadora_5_personalizada)*2), 0, fator_calib_dosadora_5, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora2, HIGH);
+              digitalWrite(dosadora5, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora2, LOW);
+              digitalWrite(dosadora5, LOW);
             }
           }
         }
@@ -684,9 +684,9 @@ void check_dosagem_personalizada_5()
             {
               tempo_dosagem = map (((dose_dosadora_5_personalizada/quantidade_dose_dosadora_5_personalizada)*2), 0, fator_calib_dosadora_5, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora2, HIGH);
+              digitalWrite(dosadora5, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora2, LOW);
+              digitalWrite(dosadora5, LOW);
             }
           }
         }
@@ -703,9 +703,9 @@ void check_dosagem_personalizada_5()
             {
               tempo_dosagem = map (((dose_dosadora_5_personalizada/quantidade_dose_dosadora_5_personalizada)*2), 0, fator_calib_dosadora_5, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora2, HIGH);
+              digitalWrite(dosadora5, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora2, LOW);
+              digitalWrite(dosadora5, LOW);
             }
           }
         }
@@ -722,9 +722,9 @@ void check_dosagem_personalizada_5()
             {
               tempo_dosagem = map (((dose_dosadora_5_personalizada/quantidade_dose_dosadora_5_personalizada)*2), 0, fator_calib_dosadora_5, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora2, HIGH);
+              digitalWrite(dosadora5, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora2, LOW);
+              digitalWrite(dosadora5, LOW);
             }
           }
         }
@@ -741,9 +741,9 @@ void check_dosagem_personalizada_5()
             {
               tempo_dosagem = map (((dose_dosadora_5_personalizada/quantidade_dose_dosadora_5_personalizada)*2), 0, fator_calib_dosadora_5, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora2, HIGH);
+              digitalWrite(dosadora5, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora2, LOW);
+              digitalWrite(dosadora5, LOW);
             }
           }
         }
@@ -761,9 +761,9 @@ void check_dosagem_personalizada_5()
             {
               tempo_dosagem = map (((dose_dosadora_5_personalizada/quantidade_dose_dosadora_5_personalizada)*2), 0, fator_calib_dosadora_5, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora2, HIGH);
+              digitalWrite(dosadora5, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora2, LOW);
+              digitalWrite(dosadora5, LOW);
             }
           }
         }
@@ -801,9 +801,9 @@ void check_dosagem_personalizada_6()
             {
               tempo_dosagem = map (((dose_dosadora_6_personalizada/quantidade_dose_dosadora_6_personalizada)*2), 0, fator_calib_dosadora_6, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora3, HIGH);
+              digitalWrite(dosadora6, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora3, LOW);
+              digitalWrite(dosadora6, LOW);
             }
           }
         }
@@ -820,9 +820,9 @@ void check_dosagem_personalizada_6()
             {
               tempo_dosagem = map (((dose_dosadora_6_personalizada/quantidade_dose_dosadora_6_personalizada)*2), 0, fator_calib_dosadora_6, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora3, HIGH);
+              digitalWrite(dosadora6, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora3, LOW);
+              digitalWrite(dosadora6, LOW);
             }
           }
         }
@@ -839,9 +839,9 @@ void check_dosagem_personalizada_6()
             {
               tempo_dosagem = map (((dose_dosadora_6_personalizada/quantidade_dose_dosadora_6_personalizada)*2), 0, fator_calib_dosadora_6, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora3, HIGH);
+              digitalWrite(dosadora6, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora3, LOW);
+              digitalWrite(dosadora6, LOW);
             }
           }
         }
@@ -858,9 +858,9 @@ void check_dosagem_personalizada_6()
             {
               tempo_dosagem = map (((dose_dosadora_6_personalizada/quantidade_dose_dosadora_6_personalizada)*2), 0, fator_calib_dosadora_6, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora3, HIGH);
+              digitalWrite(dosadora6, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora3, LOW);
+              digitalWrite(dosadora6, LOW);
             }
           }
         }
@@ -877,9 +877,9 @@ void check_dosagem_personalizada_6()
             {
               tempo_dosagem = map (((dose_dosadora_6_personalizada/quantidade_dose_dosadora_6_personalizada)*2), 0, fator_calib_dosadora_6, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora3, HIGH);
+              digitalWrite(dosadora6, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora3, LOW);
+              digitalWrite(dosadora6, LOW);
             }
           }
         }
@@ -896,9 +896,9 @@ void check_dosagem_personalizada_6()
             {
               tempo_dosagem = map (((dose_dosadora_6_personalizada/quantidade_dose_dosadora_6_personalizada)*2), 0, fator_calib_dosadora_6, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora3, HIGH);
+              digitalWrite(dosadora6, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora3, LOW);
+              digitalWrite(dosadora6, LOW);
             }
           }
         }
@@ -915,9 +915,9 @@ void check_dosagem_personalizada_6()
             {
               tempo_dosagem = map (((dose_dosadora_6_personalizada/quantidade_dose_dosadora_6_personalizada)*2), 0, fator_calib_dosadora_6, 0, 60000);
               tempo_dosagem /= 2;                 
-              digitalWrite(dosadora3, HIGH);
+              digitalWrite(dosadora6, HIGH);
               delay(tempo_dosagem);
-              digitalWrite(dosadora3, LOW);
+              digitalWrite(dosadora6, LOW);
             }
           }
         }

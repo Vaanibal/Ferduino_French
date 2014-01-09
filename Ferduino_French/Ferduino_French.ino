@@ -842,7 +842,7 @@ byte rled[96] = {                         //Potência de saída dos leds brancos
   111, 102, 93, 84, 75, 66, 57, 48,       // 16 e 18
   39, 30, 21, 12, 0, 0, 0, 0,         // 18 a 20
   0, 0, 0, 0, 0, 0, 0, 0,         // 20 e 22
-  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 000
+  0, 0, 0, 0, 0, 0, 0, 0          // 22 a 0
 };
 byte uvled[96] = {                         //Potência de saída dos leds brancos 255 = 100% da potência
   0, 0, 0, 0, 0, 0, 0, 0,       // 0 e 2
